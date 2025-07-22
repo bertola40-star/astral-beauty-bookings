@@ -52,6 +52,19 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				// Astral Beauty Spa Brand Colors
+				'luxury-gold': {
+					DEFAULT: 'hsl(var(--luxury-gold))',
+					light: 'hsl(var(--luxury-gold-light))',
+					dark: 'hsl(var(--luxury-gold-dark))'
+				},
+				'elegant-gray': {
+					DEFAULT: 'hsl(var(--elegant-gray))',
+					light: 'hsl(var(--elegant-gray-light))',
+					muted: 'hsl(var(--elegant-gray-muted))'
+				},
+				'pure-white': 'hsl(var(--pure-white))',
+				'soft-white': 'hsl(var(--soft-white))',
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
