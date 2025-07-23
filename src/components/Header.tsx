@@ -21,7 +21,7 @@ const Header = () => {
             <div className="flex items-center space-x-6">
               <div className="flex items-center space-x-2">
                 <Phone className="h-4 w-4" />
-                <span>(813) 555-0123</span>
+                <span>813-539-7294 (English) / 813-436-1395</span>
               </div>
               <div className="flex items-center space-x-2">
                 <MapPin className="h-4 w-4" />
@@ -30,7 +30,7 @@ const Header = () => {
             </div>
             <div className="flex items-center space-x-2">
               <Clock className="h-4 w-4" />
-              <span>Lun-Sab: 9AM-7PM</span>
+              <span>Lun-Sab: 9AM-5PM</span>
             </div>
           </div>
         </div>

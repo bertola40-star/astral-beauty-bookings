@@ -57,7 +57,7 @@ const Footer = () => {
                 <Phone className="h-5 w-5 text-luxury-gold mt-1 flex-shrink-0" />
                 <div>
                   <p className="font-semibold">Teléfono</p>
-                  <p className="text-elegant-gray-light text-sm">(813) 555-0123</p>
+                  <p className="text-elegant-gray-light text-sm">813-539-7294 (English)<br />813-436-1395</p>
                 </div>
               </div>
               
@@ -65,7 +65,7 @@ const Footer = () => {
                 <Mail className="h-5 w-5 text-luxury-gold mt-1 flex-shrink-0" />
                 <div>
                   <p className="font-semibold">Email</p>
-                  <p className="text-elegant-gray-light text-sm">info@astralbeautyspa.com</p>
+                  <p className="text-elegant-gray-light text-sm">astralbeauty468@gmail.com</p>
                 </div>
               </div>
               
@@ -74,7 +74,7 @@ const Footer = () => {
                 <div>
                   <p className="font-semibold">Horarios</p>
                   <p className="text-elegant-gray-light text-sm">
-                    Lun - Sab: 9:00 AM - 7:00 PM<br />
+                    Lun - Sab: 9:00 AM - 5:00 PM<br />
                     Dom: Cerrado
                   </p>
                 </div>
