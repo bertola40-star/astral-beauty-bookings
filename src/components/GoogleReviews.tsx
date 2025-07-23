@@ -86,7 +86,8 @@ const GoogleReviews = () => {
   const [placeData, setPlaceData] = useState<GooglePlaceData>(mockGoogleData);
   const [showAllReviews, setShowAllReviews] = useState(false);
 
-  const displayedReviews = showAllReviews ? placeData.reviews : placeData.reviews.slice(0, 3);
+  const fiveStarReviews = placeData.reviews.filter(review => review.rating === 5);
+  const displayedReviews = showAllReviews ? fiveStarReviews : fiveStarReviews.slice(0, 3);
 
   const renderStars = (rating: number) => {
     return [...Array(5)].map((_, i) => (
