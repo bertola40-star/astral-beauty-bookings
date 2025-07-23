@@ -25,7 +25,7 @@ const Header = () => {
               </div>
               <div className="flex items-center space-x-2">
                 <MapPin className="h-4 w-4" />
-                <span>Tampa, Florida</span>
+                <span>7730 Palm River Rd office 100, Tampa, FL 33619</span>
               </div>
             </div>
             <div className="flex items-center space-x-2">

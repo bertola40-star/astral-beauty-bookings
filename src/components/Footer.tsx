@@ -47,7 +47,8 @@ const Footer = () => {
                 <div>
                   <p className="font-semibold">Ubicación</p>
                   <p className="text-elegant-gray-light text-sm">
-                    Tampa, Florida<br />
+                    7730 Palm River Rd office 100<br />
+                    Tampa, FL 33619<br />
                     Estados Unidos
                   </p>
                 </div>
