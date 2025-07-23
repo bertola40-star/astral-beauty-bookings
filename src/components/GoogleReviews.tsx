@@ -26,7 +26,7 @@ interface GooglePlaceData {
 // Mock data - En producción, esto vendría de la Google Places API
 const mockGoogleData: GooglePlaceData = {
   name: "Astral Beauty Spa",
-  rating: 4.9,
+  rating: 5.0,
   user_ratings_total: 127,
   formatted_address: "Tampa, FL, Estados Unidos",
   place_id: "ChIJ_mock_place_id",
