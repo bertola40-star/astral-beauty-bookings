@@ -41,7 +41,7 @@ const services: Service[] = [
     image: microbladingImg,
     description: 'Técnica de micropigmentación para cejas perfectas y naturales',
     price: 'Desde $350',
-    duration: '2-3 horas',
+    duration: '4 horas aprox',
     requiresDeposit: true,
     depositAmount: '$100',
     rating: 5.0,
@@ -49,16 +49,16 @@ const services: Service[] = [
       {
         name: 'Microblading Clásico',
         description: 'Diseño y creación de cejas naturales con técnica pelo a pelo',
-        duration: '2.5 horas',
+        duration: '4 horas',
         price: '$350',
-        features: ['Consulta y diseño', 'Aplicación de pigmento', 'Retoque incluido', 'Cuidados post-tratamiento']
+        features: ['Consulta y diseño', 'Aplicación de pigmento', 'Retoque adicional (45 días) - costo extra', 'Cuidados post-tratamiento']
       },
       {
         name: 'Microblading Premium',
         description: 'Técnica avanzada con pigmentos de alta calidad y diseño personalizado',
-        duration: '3 horas',
+        duration: '4 horas',
         price: '$450',
-        features: ['Diseño 3D personalizado', 'Pigmentos premium', '2 retoques incluidos', 'Seguimiento 6 meses']
+        features: ['Diseño 3D personalizado', 'Pigmentos premium', 'Retoque adicional (45 días) - costo extra', 'Seguimiento 6 meses']
       }
     ]
   },
@@ -68,7 +68,7 @@ const services: Service[] = [
     image: lipTattooImg,
     description: 'Pigmentación permanente para labios más definidos y coloridos',
     price: 'Desde $300',
-    duration: '2 horas',
+    duration: '4 horas aprox',
     requiresDeposit: true,
     depositAmount: '$100',
     rating: 4.9,
@@ -76,16 +76,16 @@ const services: Service[] = [
       {
         name: 'Delineado de Labios',
         description: 'Definición del contorno natural de los labios',
-        duration: '1.5 horas',
+        duration: '4 horas',
         price: '$300',
-        features: ['Diseño de contorno', 'Pigmentación permanente', 'Efecto natural', 'Retoque incluido']
+        features: ['Diseño de contorno', 'Pigmentación permanente', 'Efecto natural', 'Retoque adicional (45 días) - costo extra']
       },
       {
         name: 'Labios Completos',
         description: 'Pigmentación completa con color y volumen',
-        duration: '2.5 horas',
+        duration: '4 horas',
         price: '$400',
-        features: ['Color completo', 'Efecto volumen', 'Larga duración', '2 retoques incluidos']
+        features: ['Color completo', 'Efecto volumen', 'Larga duración', 'Retoque adicional (45 días) - costo extra']
       }
     ]
   },
@@ -120,6 +120,55 @@ const services: Service[] = [
         duration: '75 minutos',
         price: '$100',
         features: ['Limpieza específica', 'Extracción', 'Luz LED', 'Productos medicados']
+      },
+      {
+        name: 'Carbon Peel',
+        description: 'Tratamiento con láser de carbón para piel radiante',
+        duration: '60 minutos',
+        price: '$180',
+        features: ['Aplicación de carbón', 'Láser Q-switched', 'Reducción de poros', 'Brillo instantáneo']
+      },
+      {
+        name: 'Hilos Bio Estimuladores de Colágeno',
+        description: 'Lifting facial no quirúrgico con hilos biocompatibles',
+        duration: '90 minutos',
+        price: '$350',
+        features: ['Hilos PDO', 'Estimulación de colágeno', 'Efecto lifting', 'Resultados duraderos']
+      },
+      {
+        name: 'Plasma Pen Fibroblast',
+        description: 'Tratamiento de rejuvenecimiento con plasma',
+        duration: '75 minutos',
+        price: '$250',
+        features: ['Tecnología plasma', 'Tensado de piel', 'Reducción arrugas', 'Sin cirugía']
+      },
+      {
+        name: 'Hydrafacial',
+        description: 'Limpieza profunda e hidratación con tecnología avanzada',
+        duration: '45 minutos',
+        price: '$150',
+        features: ['Limpieza con vórtice', 'Extracción indolora', 'Hidratación intensa', 'Antioxidantes']
+      },
+      {
+        name: 'Microneedling',
+        description: 'Estimulación de colágeno con microagujas',
+        duration: '60 minutos',
+        price: '$200',
+        features: ['Microagujas estériles', 'Regeneración celular', 'Mejora textura', 'Sérum personalizado']
+      },
+      {
+        name: 'Microdermoabrasión',
+        description: 'Exfoliación profunda con cristales de diamante',
+        duration: '50 minutos',
+        price: '$120',
+        features: ['Cristales de diamante', 'Renovación celular', 'Piel suave', 'Reducción manchas']
+      },
+      {
+        name: 'Alta Frecuencia',
+        description: 'Tratamiento con corriente de alta frecuencia',
+        duration: '40 minutos',
+        price: '$90',
+        features: ['Corriente eléctrica', 'Efecto bactericida', 'Estimulación circulación', 'Piel purificada']
       }
     ]
   },
