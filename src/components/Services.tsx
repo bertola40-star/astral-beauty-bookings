@@ -47,6 +47,13 @@ const services: Service[] = [
     rating: 5.0,
     treatments: [
       {
+        name: 'Hybrid Brows Pro 🌿',
+        description: 'Híbrido avanzado adaptado a cada persona para resultados naturales únicos',
+        duration: '4 horas',
+        price: '$500',
+        features: ['Técnica híbrida personalizada', 'Adaptación facial única', 'Pigmentos biocompatibles', 'Retoque adicional (45 días) - costo extra', 'Seguimiento especializado']
+      },
+      {
         name: 'Microblading Clásico',
         description: 'Diseño y creación de cejas naturales con técnica pelo a pelo',
         duration: '4 horas',
@@ -54,10 +61,31 @@ const services: Service[] = [
         features: ['Consulta y diseño', 'Aplicación de pigmento', 'Retoque adicional (45 días) - costo extra', 'Cuidados post-tratamiento']
       },
       {
+        name: 'Nano Brows ✨',
+        description: 'Técnica de precisión tecnológica para cejas ultra naturales y delicadas',
+        duration: '4 horas',
+        price: '$400',
+        features: ['Tecnología nano', 'Precisión extrema', 'Efecto súper natural', 'Retoque adicional (45 días) - costo extra', 'Para uso diario']
+      },
+      {
+        name: 'Power Brows 💪',
+        description: 'Cejas definidas con carácter para un look empoderado e impactante',
+        duration: '4 horas',
+        price: '$420',
+        features: ['Cejas con fuerza', 'Definición marcada', 'Look empoderado', 'Retoque adicional (45 días) - costo extra', 'Máximo impacto']
+      },
+      {
+        name: 'Ombre Brows ✨',
+        description: 'Efecto degradado elegante tipo maquillaje permanente para despertar lista',
+        duration: '4 horas',
+        price: '$450',
+        features: ['Efecto makeup look', 'Degradado suave', 'Elegancia moderna', 'Retoque adicional (45 días) - costo extra', 'Practicidad diaria']
+      },
+      {
         name: 'Microblading Premium',
         description: 'Técnica avanzada con pigmentos de alta calidad y diseño personalizado',
         duration: '4 horas',
-        price: '$450',
+        price: '$480',
         features: ['Diseño 3D personalizado', 'Pigmentos premium', 'Retoque adicional (45 días) - costo extra', 'Seguimiento 6 meses']
       }
     ]
