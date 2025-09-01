@@ -96,7 +96,8 @@ const services: Service[] = [
     description: 'Tratamientos faciales personalizados para todo tipo de piel',
     price: 'Desde $80',
     duration: '60-90 min',
-    requiresDeposit: false,
+    requiresDeposit: true,
+    depositAmount: '$25',
     rating: 4.8,
     treatments: [
       {
@@ -129,7 +130,8 @@ const services: Service[] = [
     description: 'Blanqueamiento cosmético profesional para una sonrisa perfecta',
     price: 'Desde $150',
     duration: '60 min',
-    requiresDeposit: false,
+    requiresDeposit: true,
+    depositAmount: '$50',
     rating: 4.9,
     treatments: [
       {
@@ -189,7 +191,8 @@ const services: Service[] = [
     description: 'Diseño y depilación profesional para cejas perfectas',
     price: 'Desde $25',
     duration: '30 min',
-    requiresDeposit: false,
+    requiresDeposit: true,
+    depositAmount: '$15',
     rating: 4.8,
     treatments: [
       {
@@ -219,6 +222,7 @@ const services: Service[] = [
 
 const Services = () => {
   const [selectedService, setSelectedService] = useState<Service | null>(null);
+  const [showPrices, setShowPrices] = useState(false);
 
   return (
     <section id="servicios" className="py-20 bg-soft-white">
@@ -285,19 +289,19 @@ const Services = () => {
                         <Clock className="h-4 w-4 text-luxury-gold" />
                         <span className="text-sm text-elegant-gray">{service.duration}</span>
                       </div>
-                      <div className="text-lg font-bold text-luxury-gold">
-                        {service.price}
-                      </div>
+                      {showPrices && (
+                        <div className="text-lg font-bold text-luxury-gold">
+                          {service.price}
+                        </div>
+                      )}
                     </div>
 
-                    {service.requiresDeposit && (
-                      <div className="flex items-center space-x-2 mb-4 p-3 bg-luxury-gold/10 rounded-lg">
-                        <CreditCard className="h-4 w-4 text-luxury-gold" />
-                        <span className="text-sm text-elegant-gray">
-                          Seña requerida: <span className="font-semibold text-luxury-gold">{service.depositAmount}</span>
-                        </span>
-                      </div>
-                    )}
+                    <div className="flex items-center space-x-2 mb-4 p-3 bg-luxury-gold/10 rounded-lg">
+                      <CreditCard className="h-4 w-4 text-luxury-gold" />
+                      <span className="text-sm text-elegant-gray">
+                        Requiere seña para reserva online
+                      </span>
+                    </div>
 
                     <Button className="w-full btn-elegant group">
                       Ver Tratamientos
@@ -328,16 +332,16 @@ const Services = () => {
                           <span>Duración:</span>
                           <span className="font-semibold">{service.duration}</span>
                         </div>
-                        <div className="flex justify-between">
-                          <span>Precio base:</span>
-                          <span className="font-semibold text-luxury-gold">{service.price}</span>
-                        </div>
-                        {service.requiresDeposit && (
+                        {showPrices && (
                           <div className="flex justify-between">
-                            <span>Seña requerida:</span>
-                            <span className="font-semibold text-luxury-gold">{service.depositAmount}</span>
+                            <span>Precio base:</span>
+                            <span className="font-semibold text-luxury-gold">{service.price}</span>
                           </div>
                         )}
+                        <div className="flex justify-between">
+                          <span>Reserva online:</span>
+                          <span className="font-semibold text-luxury-gold">Requiere seña</span>
+                        </div>
                         <div className="flex justify-between">
                           <span>Calificación:</span>
                           <div className="flex items-center space-x-1">
@@ -367,9 +371,11 @@ const Services = () => {
                               <Clock className="h-4 w-4 text-luxury-gold" />
                               <span className="text-sm">{treatment.duration}</span>
                             </div>
-                            <div className="font-bold text-luxury-gold">
-                              {treatment.price}
-                            </div>
+                            {showPrices && (
+                              <div className="font-bold text-luxury-gold">
+                                {treatment.price}
+                              </div>
+                            )}
                           </div>
                           <div className="space-y-1">
                             {treatment.features.map((feature, featureIndex) => (
@@ -392,8 +398,15 @@ const Services = () => {
           ))}
         </div>
 
-        {/* Call to Action */}
-        <div className="text-center mt-16">
+        {/* Price Toggle & Call to Action */}
+        <div className="text-center mt-16 space-y-4">
+          <Button 
+            onClick={() => setShowPrices(!showPrices)}
+            variant="outline"
+            className="text-lg px-8 py-3 mr-4"
+          >
+            {showPrices ? 'Ocultar Precios' : 'Consultar Precios'}
+          </Button>
           <Button className="btn-luxury text-lg px-12 py-4">
             Ver Todos los Paquetes
             <ArrowRight className="ml-2 h-5 w-5" />

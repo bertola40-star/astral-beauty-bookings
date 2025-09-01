@@ -24,12 +24,12 @@ interface Service {
 }
 
 const services: Service[] = [
-  { id: 'microblading', name: 'Microblading', price: '$350-450', duration: '2-3h', requiresDeposit: true, depositAmount: '$100' },
-  { id: 'lip-tattoo', name: 'Tatuaje de Labios', price: '$300-400', duration: '2h', requiresDeposit: true, depositAmount: '$100' },
-  { id: 'facials', name: 'Faciales', price: '$80-120', duration: '60-90min', requiresDeposit: false },
-  { id: 'teeth-whitening', name: 'Blanqueamiento Dental', price: '$150-250', duration: '60min', requiresDeposit: false },
-  { id: 'laser-hair-removal', name: 'Depilación Láser', price: '$60-300', duration: '30-60min', requiresDeposit: true, depositAmount: '$50' },
-  { id: 'eyebrow-design', name: 'Diseño de Cejas', price: '$25-65', duration: '30min', requiresDeposit: false },
+  { id: 'microblading', name: 'Microblading', price: 'Consultar', duration: '2-3h', requiresDeposit: true, depositAmount: '$100' },
+  { id: 'lip-tattoo', name: 'Tatuaje de Labios', price: 'Consultar', duration: '2h', requiresDeposit: true, depositAmount: '$100' },
+  { id: 'facials', name: 'Faciales', price: 'Consultar', duration: '60-90min', requiresDeposit: true, depositAmount: '$25' },
+  { id: 'teeth-whitening', name: 'Blanqueamiento Dental', price: 'Consultar', duration: '60min', requiresDeposit: true, depositAmount: '$50' },
+  { id: 'laser-hair-removal', name: 'Depilación Láser', price: 'Consultar', duration: '30-60min', requiresDeposit: true, depositAmount: '$50' },
+  { id: 'eyebrow-design', name: 'Diseño de Cejas', price: 'Consultar', duration: '30min', requiresDeposit: true, depositAmount: '$15' },
 ];
 
 const timeSlots = [
@@ -121,7 +121,7 @@ const BookingForm = () => {
                           <div className="flex justify-between items-center w-full">
                             <span>{service.name}</span>
                             <span className="text-luxury-gold font-semibold ml-4">
-                              {service.price}
+                              Requiere seña
                             </span>
                           </div>
                         </SelectItem>
@@ -134,11 +134,9 @@ const BookingForm = () => {
                         <span className="text-sm text-elegant-gray">
                           Duración: {selectedServiceData.duration}
                         </span>
-                        {requiresDeposit && (
-                          <Badge className="bg-luxury-gold text-primary">
-                            Seña: {depositAmount}
-                          </Badge>
-                        )}
+                        <Badge className="bg-luxury-gold text-primary">
+                          Seña: {depositAmount}
+                        </Badge>
                       </div>
                     </div>
                   )}
@@ -310,7 +308,7 @@ const BookingForm = () => {
                     <div className="flex justify-between items-center">
                       <span className="font-semibold">Precio:</span>
                       <span className="text-luxury-gold font-bold text-lg">
-                        {selectedServiceData.price}
+                        A consultar
                       </span>
                     </div>
                     {selectedDate && (
@@ -325,28 +323,24 @@ const BookingForm = () => {
                         <span>{selectedTime}</span>
                       </div>
                     )}
-                    {requiresDeposit && (
-                      <>
-                        <Separator />
-                        <div className="bg-luxury-gold/10 p-4 rounded-lg">
-                          <div className="flex items-center space-x-2 mb-2">
-                            <CreditCard className="h-5 w-5 text-luxury-gold" />
-                            <span className="font-semibold text-primary">
-                              Seña Requerida
-                            </span>
-                          </div>
-                          <p className="text-sm text-elegant-gray mb-2">
-                            Este servicio requiere una seña de {depositAmount} para confirmar la cita.
-                          </p>
-                          <div className="flex justify-between items-center">
-                            <span className="font-semibold">Seña:</span>
-                            <span className="text-luxury-gold font-bold">
-                              {depositAmount}
-                            </span>
-                          </div>
-                        </div>
-                      </>
-                    )}
+                    <Separator />
+                    <div className="bg-luxury-gold/10 p-4 rounded-lg">
+                      <div className="flex items-center space-x-2 mb-2">
+                        <CreditCard className="h-5 w-5 text-luxury-gold" />
+                        <span className="font-semibold text-primary">
+                          Seña Requerida
+                        </span>
+                      </div>
+                      <p className="text-sm text-elegant-gray mb-2">
+                        Todos los servicios con reserva online requieren una seña de {depositAmount} para confirmar la cita.
+                      </p>
+                      <div className="flex justify-between items-center">
+                        <span className="font-semibold">Seña:</span>
+                        <span className="text-luxury-gold font-bold">
+                          {depositAmount}
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 ) : (
                   <p className="text-elegant-gray text-center py-8">
