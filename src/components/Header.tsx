@@ -8,6 +8,7 @@ const Header = () => {
   const navigation = [
     { name: 'Inicio', href: '/' },
     { name: 'Servicios', href: '#servicios' },
+    { name: 'Galería', href: '/galeria' },
     { name: 'Tienda', href: '/tienda' },
     { name: 'Reservar Cita', href: '#reservar' },
     { name: 'Contacto', href: '#contacto' },
@@ -31,7 +32,7 @@ const Header = () => {
             </div>
             <div className="flex items-center space-x-2">
               <Clock className="h-4 w-4" />
-              <span>Lun-Sab: 9AM-5PM</span>
+              <span>Lun-Vie: 9AM-5PM</span>
             </div>
           </div>
         </div>

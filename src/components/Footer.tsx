@@ -75,8 +75,8 @@ const Footer = () => {
                 <div>
                   <p className="font-semibold">Horarios</p>
                   <p className="text-elegant-gray-light text-sm">
-                    Lun - Sab: 9:00 AM - 5:00 PM<br />
-                    Dom: Cerrado
+                    Lun - Vie: 9:00 AM - 5:00 PM<br />
+                    Sáb - Dom: Cerrado
                   </p>
                 </div>
               </div>
