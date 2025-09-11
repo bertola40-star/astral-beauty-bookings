@@ -34,8 +34,8 @@ const Hero = () => {
           {/* Subtitle */}
           <p className="text-xl text-elegant-gray-light mb-8 leading-relaxed">
             Descubre la experiencia de belleza más sofisticada en Tampa, Florida. 
-            Servicios premium de microblading, tatuaje de labios, faciales, 
-            blanqueamiento dental y más en un ambiente de lujo.
+            Servicios premium de microblading y estética avanzada y 
+            micropigmentación consciente por Yoanna Valdés.
           </p>
 
           {/* CTA Buttons */}
