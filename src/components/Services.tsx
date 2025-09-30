@@ -91,8 +91,8 @@ const services: Service[] = [
     ]
   },
   {
-    id: 'lip-tattoo',
-    name: 'Tatuaje de Labios',
+    id: 'lip-tint',
+    name: 'LipTint',
     image: lipTattooImg,
     description: 'Pigmentación permanente para labios más definidos y coloridos',
     price: 'Desde $300',
@@ -102,18 +102,25 @@ const services: Service[] = [
     rating: 4.9,
     treatments: [
       {
-        name: 'Delineado de Labios',
+        name: 'Astral Lips',
         description: 'Definición del contorno natural de los labios',
         duration: '4 horas',
         price: '$300',
         features: ['Diseño de contorno', 'Pigmentación permanente', 'Efecto natural', 'Retoque adicional (45 días) - costo extra']
       },
       {
-        name: 'Labios Completos',
+        name: 'FullLips',
         description: 'Pigmentación completa con color y volumen',
         duration: '4 horas',
         price: '$400',
         features: ['Color completo', 'Efecto volumen', 'Larga duración', 'Retoque adicional (45 días) - costo extra']
+      },
+      {
+        name: 'Neutralización de Labios',
+        description: 'Corrección de pigmentaciones previas y tonos no deseados',
+        duration: '4 horas',
+        price: '$350',
+        features: ['Corrección de color', 'Neutralización de tonos', 'Técnica especializada', 'Retoque adicional (45 días) - costo extra']
       }
     ]
   },
