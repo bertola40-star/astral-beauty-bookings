@@ -265,7 +265,7 @@ const services: Service[] = [
     id: 'eyebrow-design',
     name: 'Depilación y Diseño de Cejas',
     image: eyebrowDesignImg,
-    description: 'Tus cejas hablan por ti... ¿qué dicen hoy? En un mundo donde cada detalle cuenta, tus cejas son la firma de tu mirada. Y no importa si eres hombre o mujer: unas cejas bien cuidadas marcan la diferencia entre lo común y lo inolvidable. EPILACIÓN CON HILO: precisión milimétrica, sin químicos, ideal para pieles exigentes. CERA PREMIUM: rápida, duradera y perfecta para quienes quieren resultados impecables en segundos. PINZAS DE DISEÑO: el arte de la perfección en cada detalle. Porque la elegancia no tiene género ni edad, atrévete a regalarte una mirada más limpia, fresca y poderosa. Tus cejas no son solo un complemento; son tu poder silencioso. Listo para descubrir cómo un simple gesto puede transformar tu rostro.',
+    description: 'EPILACIÓN CON HILO: precisión milimétrica, sin químicos, ideal para pieles exigentes. CERA PREMIUM: rápida, duradera y perfecta para quienes quieren resultados impecables en segundos. PINZAS DE DISEÑO: el arte de la perfección en cada detalle. Porque la elegancia no tiene género ni edad, atrévete a regalarte una mirada más limpia, fresca y poderosa. Tus cejas no son solo un complemento; son tu poder silencioso. Listo para descubrir cómo un simple gesto puede transformar tu rostro.',
     price: 'Desde $25',
     duration: '30 min',
     requiresDeposit: true,
