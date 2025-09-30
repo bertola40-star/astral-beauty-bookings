@@ -273,25 +273,25 @@ const services: Service[] = [
     rating: 4.8,
     treatments: [
       {
-        name: 'Diseño Básico',
-        description: 'Depilación y forma básica de cejas',
+        name: 'Cera Premium',
+        description: 'Rápida, duradera y perfecta para quienes quieren resultados impecables en segundos',
         duration: '20 minutos',
         price: '$25',
-        features: ['Análisis facial', 'Depilación precisa', 'Forma natural', 'Tinte opcional']
+        features: ['Depilación rápida', 'Resultados duraderos', 'Cera de alta calidad', 'Técnica profesional']
       },
       {
-        name: 'Diseño Arquitectónico',
-        description: 'Diseño avanzado con medidas precisas',
+        name: 'Epilación con Hilo',
+        description: 'Precisión milimétrica, sin químicos, ideal para pieles exigentes',
+        duration: '30 minutos',
+        price: '$30',
+        features: ['Técnica milenaria', 'Sin químicos', 'Precisión extrema', 'Ideal pieles sensibles']
+      },
+      {
+        name: 'Pinzas y Diseño',
+        description: 'El arte de la perfección en cada detalle',
         duration: '45 minutos',
-        price: '$45',
-        features: ['Medidas golden ratio', 'Diseño personalizado', 'Tinte incluido', 'Hidratación']
-      },
-      {
-        name: 'Cejas HD',
-        description: 'Técnica de alta definición para cejas perfectas',
-        duration: '60 minutos',
-        price: '$65',
-        features: ['Técnica HD', 'Múltiples productos', 'Efecto 3D', 'Duración extendida']
+        price: '$35',
+        features: ['Diseño personalizado', 'Depilación precisa', 'Forma perfecta', 'Atención al detalle']
       }
     ]
   }
