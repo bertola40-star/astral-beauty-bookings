@@ -404,29 +404,9 @@ const Services = () => {
                     />
                     <div className="mt-4 p-4 bg-luxury-gold/10 rounded-lg">
                       <h4 className="font-semibold text-primary mb-2">Información del Servicio</h4>
-                      <div className="space-y-2 text-sm">
-                        <div className="flex justify-between">
-                          <span>Duración:</span>
-                          <span className="font-semibold">{service.duration}</span>
-                        </div>
-                        {showPrices && (
-                          <div className="flex justify-between">
-                            <span>Precio base:</span>
-                            <span className="font-semibold text-luxury-gold">{service.price}</span>
-                          </div>
-                        )}
-                        <div className="flex justify-between">
-                          <span>Reserva online:</span>
-                          <span className="font-semibold text-luxury-gold">Requiere seña</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span>Calificación:</span>
-                          <div className="flex items-center space-x-1">
-                            <Star className="h-4 w-4 text-luxury-gold fill-current" />
-                            <span className="font-semibold">{service.rating}</span>
-                          </div>
-                        </div>
-                      </div>
+                      <p className="text-sm text-elegant-gray italic">
+                        Los precios de nuestros servicios serán confirmados al momento de realizar la reserva.
+                      </p>
                     </div>
                   </div>
 
