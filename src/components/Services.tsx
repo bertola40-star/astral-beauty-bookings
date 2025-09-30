@@ -428,7 +428,19 @@ const Services = () => {
                               </div>
                             ))}
                           </div>
-                          <Button className="w-full mt-3 btn-luxury">
+                          <Button 
+                            className="w-full mt-3 btn-luxury"
+                            onClick={() => {
+                              // Cerrar el diálogo primero
+                              const closeButton = document.querySelector('[data-radix-collection-item]') as HTMLElement;
+                              closeButton?.click();
+                              // Navegar a la sección de reservas
+                              setTimeout(() => {
+                                const reservarSection = document.getElementById('reservar');
+                                reservarSection?.scrollIntoView({ behavior: 'smooth' });
+                              }, 100);
+                            }}
+                          >
                             Reservar {treatment.name}
                           </Button>
                         </Card>

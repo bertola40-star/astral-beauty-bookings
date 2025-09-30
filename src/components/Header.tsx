@@ -65,7 +65,13 @@ const Header = () => {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <Button className="btn-luxury">
+            <Button 
+              className="btn-luxury"
+              onClick={() => {
+                const reservarSection = document.getElementById('reservar');
+                reservarSection?.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
               Reservar Ahora
             </Button>
           </div>
@@ -96,7 +102,14 @@ const Header = () => {
                 {item.name}
               </a>
             ))}
-            <Button className="btn-luxury w-full mt-4">
+            <Button 
+              className="btn-luxury w-full mt-4"
+              onClick={() => {
+                setIsMenuOpen(false);
+                const reservarSection = document.getElementById('reservar');
+                reservarSection?.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
               Reservar Ahora
             </Button>
           </div>

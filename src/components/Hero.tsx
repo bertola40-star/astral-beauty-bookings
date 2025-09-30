@@ -40,11 +40,23 @@ const Hero = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4">
-            <Button className="btn-luxury text-lg px-8 py-4">
+            <Button 
+              className="btn-luxury text-lg px-8 py-4"
+              onClick={() => {
+                const reservarSection = document.getElementById('reservar');
+                reservarSection?.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
               Reservar Cita
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
-            <Button className="btn-outline-luxury text-lg px-8 py-4 bg-pure-white/10 backdrop-blur-sm">
+            <Button 
+              className="btn-outline-luxury text-lg px-8 py-4 bg-pure-white/10 backdrop-blur-sm"
+              onClick={() => {
+                const serviciosSection = document.getElementById('servicios');
+                serviciosSection?.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
               Ver Servicios
             </Button>
           </div>
