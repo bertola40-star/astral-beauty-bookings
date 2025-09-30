@@ -136,74 +136,53 @@ const services: Service[] = [
     rating: 4.8,
     treatments: [
       {
-        name: 'Facial Clásico',
-        description: 'Limpieza profunda y hidratación para piel radiante',
+        name: 'Hydra Facial Astral Glow',
+        description: 'No es una limpieza es un reset cósmico',
         duration: '60 minutos',
-        price: '$80',
-        features: ['Limpieza profunda', 'Exfoliación', 'Mascarilla hidratante', 'Masaje facial']
+        price: '$150',
+        features: ['Reset cósmico', 'Hidratación profunda', 'Tecnología avanzada', 'Resultados inmediatos']
       },
       {
-        name: 'Facial Anti-Edad',
-        description: 'Tratamiento avanzado con productos anti-aging',
-        duration: '90 minutos',
-        price: '$120',
-        features: ['Productos premium', 'Radiofrecuencia', 'Mascarilla colágeno', 'Sérum anti-edad']
-      },
-      {
-        name: 'Facial Acné',
-        description: 'Tratamiento especializado para piel con acné',
+        name: 'Deep Clean',
+        description: 'Limpieza profunda con extracciones',
         duration: '75 minutos',
         price: '$100',
-        features: ['Limpieza específica', 'Extracción', 'Luz LED', 'Productos medicados']
+        features: ['Limpieza profunda', 'Extracciones', 'Purificación poros', 'Piel renovada']
       },
       {
-        name: 'Carbon Peel',
-        description: 'Tratamiento con láser de carbón para piel radiante',
+        name: 'SkinBooster',
+        description: 'Un shot directo de poder para tu piel: vitaminas, aminoácidos y péptidos más hidratación intensiva',
         duration: '60 minutos',
         price: '$180',
-        features: ['Aplicación de carbón', 'Láser Q-switched', 'Reducción de poros', 'Brillo instantáneo']
+        features: ['Vitaminas concentradas', 'Aminoácidos', 'Péptidos activos', 'Hidratación intensiva']
       },
       {
-        name: 'Hilos Bio Estimuladores de Colágeno',
-        description: 'Lifting facial no quirúrgico con hilos biocompatibles',
+        name: 'EXOSOMAS Astral Regeneration',
+        description: 'Tratamiento de alta tecnología celular. Restaura, regenera y rejuvenece tu piel como si le dieras "Ctrl+Z" al envejecimiento',
         duration: '90 minutos',
-        price: '$350',
-        features: ['Hilos PDO', 'Estimulación de colágeno', 'Efecto lifting', 'Resultados duraderos']
+        price: '$400',
+        features: ['Tecnología celular', 'Restauración profunda', 'Regeneración avanzada', 'Efecto anti-edad']
       },
       {
-        name: 'Plasma Pen Fibroblast',
-        description: 'Tratamiento de rejuvenecimiento con plasma',
+        name: 'MICRONEEDLING Dermapen Astral',
+        description: 'Pequeñas agujas, grandes resultados. Estimula colágeno, reduce marcas y te deja la piel más firme que tu ex tratando de volver',
         duration: '75 minutos',
         price: '$250',
-        features: ['Tecnología plasma', 'Tensado de piel', 'Reducción arrugas', 'Sin cirugía']
+        features: ['Estimulación colágeno', 'Reducción marcas', 'Firmeza extrema', 'Microagujas precision']
       },
       {
-        name: 'Hydrafacial',
-        description: 'Limpieza profunda e hidratación con tecnología avanzada',
-        duration: '45 minutos',
-        price: '$150',
-        features: ['Limpieza con vórtice', 'Extracción indolora', 'Hidratación intensa', 'Antioxidantes']
-      },
-      {
-        name: 'Microneedling',
-        description: 'Estimulación de colágeno con microagujas',
+        name: 'MICRODERMO ASTRAL Microdermoabrasión',
+        description: 'Exfoliación de otra galaxia. Remueve células muertas con precisión y revela una piel suave, clara y con textura de lujo',
         duration: '60 minutos',
-        price: '$200',
-        features: ['Microagujas estériles', 'Regeneración celular', 'Mejora textura', 'Sérum personalizado']
+        price: '$140',
+        features: ['Exfoliación galáctica', 'Remoción células muertas', 'Textura de lujo', 'Piel renovada']
       },
       {
-        name: 'Microdermoabrasión',
-        description: 'Exfoliación profunda con cristales de diamante',
+        name: 'ASTRAL CARBON PEEL',
+        description: 'Un peeling con carbón que limpia en profundidad',
         duration: '50 minutos',
-        price: '$120',
-        features: ['Cristales de diamante', 'Renovación celular', 'Piel suave', 'Reducción manchas']
-      },
-      {
-        name: 'Alta Frecuencia',
-        description: 'Tratamiento con corriente de alta frecuencia',
-        duration: '40 minutos',
-        price: '$90',
-        features: ['Corriente eléctrica', 'Efecto bactericida', 'Estimulación circulación', 'Piel purificada']
+        price: '$200',
+        features: ['Peeling con carbón', 'Limpieza profunda', 'Purificación intensa', 'Brillo natural']
       }
     ]
   },
