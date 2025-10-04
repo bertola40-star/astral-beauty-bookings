@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
+import { BookingDialog } from '@/components/BookingDialog';
 
 // Import service images
 import microbladingImg from '@/assets/microblading.jpg';
@@ -285,6 +286,7 @@ const services: Service[] = [
 
 const Services = () => {
   const [selectedService, setSelectedService] = useState<Service | null>(null);
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [showPrices, setShowPrices] = useState(false);
 
   return (
@@ -431,14 +433,8 @@ const Services = () => {
                           <Button 
                             className="w-full mt-3 btn-luxury"
                             onClick={() => {
-                              // Cerrar el diálogo primero
-                              const closeButton = document.querySelector('[data-radix-collection-item]') as HTMLElement;
-                              closeButton?.click();
-                              // Navegar a la sección de reservas
-                              setTimeout(() => {
-                                const reservarSection = document.getElementById('reservar');
-                                reservarSection?.scrollIntoView({ behavior: 'smooth' });
-                              }, 100);
+                              setSelectedService(null);
+                              setIsBookingOpen(true);
                             }}
                           >
                             Reservar {treatment.name}
@@ -468,6 +464,8 @@ const Services = () => {
           </Button>
         </div>
       </div>
+      
+      <BookingDialog open={isBookingOpen} onOpenChange={setIsBookingOpen} />
     </section>
   );
 };

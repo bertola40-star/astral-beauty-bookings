@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Menu, X, Phone, MapPin, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { BookingDialog } from '@/components/BookingDialog';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
 
   const navigation = [
     { name: 'Inicio', href: '/' },
@@ -67,10 +69,7 @@ const Header = () => {
           <div className="hidden md:block">
             <Button 
               className="btn-luxury"
-              onClick={() => {
-                const reservarSection = document.getElementById('reservar');
-                reservarSection?.scrollIntoView({ behavior: 'smooth' });
-              }}
+              onClick={() => setIsBookingOpen(true)}
             >
               Reservar Ahora
             </Button>
@@ -106,8 +105,7 @@ const Header = () => {
               className="btn-luxury w-full mt-4"
               onClick={() => {
                 setIsMenuOpen(false);
-                const reservarSection = document.getElementById('reservar');
-                reservarSection?.scrollIntoView({ behavior: 'smooth' });
+                setIsBookingOpen(true);
               }}
             >
               Reservar Ahora
@@ -115,6 +113,8 @@ const Header = () => {
           </div>
         </div>
       )}
+      
+      <BookingDialog open={isBookingOpen} onOpenChange={setIsBookingOpen} />
     </header>
   );
 };

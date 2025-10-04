@@ -1,8 +1,12 @@
+import { useState } from 'react';
 import { ArrowRight, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { BookingDialog } from '@/components/BookingDialog';
 import heroImage from '@/assets/hero-spa-interior.jpg';
 
 const Hero = () => {
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
+  
   return (
     <section id="inicio" className="relative min-h-screen flex items-center">
       {/* Background Image */}
@@ -42,10 +46,7 @@ const Hero = () => {
           <div className="flex flex-col sm:flex-row gap-4">
             <Button 
               className="btn-luxury text-lg px-8 py-4"
-              onClick={() => {
-                const reservarSection = document.getElementById('reservar');
-                reservarSection?.scrollIntoView({ behavior: 'smooth' });
-              }}
+              onClick={() => setIsBookingOpen(true)}
             >
               Reservar Cita
               <ArrowRight className="ml-2 h-5 w-5" />
@@ -87,6 +88,8 @@ const Hero = () => {
           </div>
         </div>
       </div>
+
+      <BookingDialog open={isBookingOpen} onOpenChange={setIsBookingOpen} />
     </section>
   );
 };
