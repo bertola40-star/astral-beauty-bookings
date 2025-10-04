@@ -3,6 +3,7 @@ import { ArrowRight, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { BookingDialog } from '@/components/BookingDialog';
 import heroImage from '@/assets/hero-spa-interior.jpg';
+import yoannaImage from '@/assets/yoanna-valdes.jpg';
 
 const Hero = () => {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
@@ -35,11 +36,26 @@ const Hero = () => {
             <span className="text-elegant-gray-light">Te Espera</span>
           </h1>
 
+          {/* Expert Section */}
+          <div className="flex items-center gap-6 mb-8">
+            <div className="relative">
+              <img
+                src={yoannaImage}
+                alt="Yoanna Valdés - Experta en Belleza"
+                className="w-24 h-24 rounded-full object-cover border-4 border-luxury-gold/30"
+              />
+            </div>
+            <div>
+              <p className="text-elegant-gray-light text-lg mb-1">Tu destino de belleza premium</p>
+              <p className="text-luxury-gold font-semibold text-xl">por Yoanna Valdés</p>
+            </div>
+          </div>
+
           {/* Subtitle */}
           <p className="text-xl text-elegant-gray-light mb-8 leading-relaxed">
             Descubre la experiencia de belleza más sofisticada en Tampa, Florida. 
             Servicios premium de microblading y estética avanzada y 
-            micropigmentación consciente por Yoanna Valdés.
+            micropigmentación consciente.
           </p>
 
           {/* CTA Buttons */}
