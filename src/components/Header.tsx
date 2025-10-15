@@ -1,11 +1,46 @@
-import { useState } from 'react';
-import { Menu, X, Phone, MapPin, Clock } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Menu, X, Phone, MapPin, Clock, LogOut, User as UserIcon } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { BookingDialog } from '@/components/BookingDialog';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
+import { User, Session } from '@supabase/supabase-js';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isBookingOpen, setIsBookingOpen] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [session, setSession] = useState<Session | null>(null);
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  useEffect(() => {
+    // Set up auth state listener
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        setSession(session);
+        setUser(session?.user ?? null);
+      }
+    );
+
+    // Check for existing session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    toast({
+      title: "Sesión cerrada",
+      description: "Has cerrado sesión correctamente.",
+    });
+    navigate('/');
+  };
 
   const navigation = [
     { name: 'Inicio', href: '/' },
@@ -65,14 +100,39 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* CTA Button */}
-          <div className="hidden md:block">
+          {/* CTA Button & Auth */}
+          <div className="hidden md:flex items-center gap-4">
             <Button 
               className="btn-luxury"
               onClick={() => setIsBookingOpen(true)}
             >
               Reservar Ahora
             </Button>
+            
+            {user ? (
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-muted-foreground flex items-center gap-1">
+                  <UserIcon className="h-4 w-4" />
+                  {user.email}
+                </span>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleLogout}
+                  className="flex items-center gap-2"
+                >
+                  <LogOut className="h-4 w-4" />
+                  Salir
+                </Button>
+              </div>
+            ) : (
+              <Button
+                variant="outline"
+                onClick={() => navigate('/auth')}
+              >
+                Iniciar Sesión
+              </Button>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -110,6 +170,38 @@ const Header = () => {
             >
               Reservar Ahora
             </Button>
+            
+            {user ? (
+              <div className="space-y-2 pt-4 border-t">
+                <p className="text-sm text-muted-foreground flex items-center gap-1">
+                  <UserIcon className="h-4 w-4" />
+                  {user.email}
+                </p>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    handleLogout();
+                  }}
+                  className="w-full flex items-center justify-center gap-2"
+                >
+                  <LogOut className="h-4 w-4" />
+                  Salir
+                </Button>
+              </div>
+            ) : (
+              <Button
+                variant="outline"
+                className="w-full"
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  navigate('/auth');
+                }}
+              >
+                Iniciar Sesión
+              </Button>
+            )}
           </div>
         </div>
       )}
