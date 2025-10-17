@@ -14,6 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
+      testimonials: {
+        Row: {
+          author_name: string
+          created_at: string
+          id: string
+          is_featured: boolean | null
+          is_published: boolean | null
+          rating: number
+          review_text: string
+          service_type: string | null
+          updated_at: string
+        }
+        Insert: {
+          author_name: string
+          created_at?: string
+          id?: string
+          is_featured?: boolean | null
+          is_published?: boolean | null
+          rating: number
+          review_text: string
+          service_type?: string | null
+          updated_at?: string
+        }
+        Update: {
+          author_name?: string
+          created_at?: string
+          id?: string
+          is_featured?: boolean | null
+          is_published?: boolean | null
+          rating?: number
+          review_text?: string
+          service_type?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string | null
