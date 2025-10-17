@@ -363,14 +363,14 @@ const BookingForm = () => {
                     <Phone className="h-5 w-5 text-luxury-gold" />
                     <div>
                       <p className="font-semibold">Teléfono</p>
-                      <p className="text-elegant-gray">(813) 555-0123</p>
+                      <p className="text-elegant-gray">813-539-7294 (English) / 813-436-1395</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-3">
                     <Mail className="h-5 w-5 text-luxury-gold" />
                     <div>
                       <p className="font-semibold">Email</p>
-                      <p className="text-elegant-gray">info@astralbeautyspa.com</p>
+                      <p className="text-elegant-gray">yvaldes450@gmail.com</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-3">
