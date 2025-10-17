@@ -14,11 +14,6 @@ const ExpertCarousel = () => {
   const slides = [
     {
       id: 1,
-      title: "Experta en Belleza",
-      description: "Con años de experiencia en micropigmentación y estética avanzada"
-    },
-    {
-      id: 2,
       title: "Yoanna Valdés",
       description: "Tu especialista de confianza",
       showImage: true
