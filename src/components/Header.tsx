@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, Phone, MapPin, Clock, LogOut, User as UserIcon } from 'lucide-react';
+import { Menu, X, Phone, MapPin, Clock, LogOut, User as UserIcon, BarChart3 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { BookingDialog } from '@/components/BookingDialog';
@@ -135,13 +135,23 @@ const Header = () => {
             {user ? (
               <div className="flex items-center gap-2">
                 {isAdmin && (
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => navigate('/admin/testimonios')}
-                  >
-                    Admin
-                  </Button>
+                  <div className="flex gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => navigate('/admin/testimonios')}
+                    >
+                      Testimonios
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => navigate('/admin/analytics')}
+                    >
+                      <BarChart3 className="h-4 w-4 mr-1" />
+                      Analytics
+                    </Button>
+                  </div>
                 )}
                 <span className="text-sm text-muted-foreground flex items-center gap-1">
                   <UserIcon className="h-4 w-4" />
