@@ -3,13 +3,19 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Eye, MousePointer, Users, TrendingUp } from "lucide-react";
+import { ArrowLeft, Eye, MousePointer, Users, TrendingUp, Flame } from "lucide-react";
+import ClickHeatmap from "@/components/ClickHeatmap";
 
 interface ClickStats {
   element_text: string | null;
   element_id: string | null;
   element_tag: string | null;
   count: number;
+}
+
+interface ClickPosition {
+  x_position: number;
+  y_position: number;
 }
 
 const AdminAnalytics = () => {
@@ -21,6 +27,7 @@ const AdminAnalytics = () => {
   const [todayViews, setTodayViews] = useState(0);
   const [clickStats, setClickStats] = useState<ClickStats[]>([]);
   const [recentViews, setRecentViews] = useState<any[]>([]);
+  const [clickPositions, setClickPositions] = useState<ClickPosition[]>([]);
 
   useEffect(() => {
     checkAdminAndLoadData();
@@ -85,11 +92,13 @@ const AdminAnalytics = () => {
     // Click statistics - get raw data and aggregate in JS
     const { data: clickData } = await supabase
       .from("click_events")
-      .select("element_text, element_id, element_tag")
+      .select("element_text, element_id, element_tag, x_position, y_position")
       .not("element_text", "is", null);
 
     if (clickData) {
       const clickMap = new Map<string, ClickStats>();
+      const positions: ClickPosition[] = [];
+
       clickData.forEach((click) => {
         const key = `${click.element_text}-${click.element_id}-${click.element_tag}`;
         if (clickMap.has(key)) {
@@ -102,11 +111,20 @@ const AdminAnalytics = () => {
             count: 1,
           });
         }
+
+        if (click.x_position && click.y_position) {
+          positions.push({
+            x_position: click.x_position,
+            y_position: click.y_position,
+          });
+        }
       });
+
       const sortedClicks = Array.from(clickMap.values())
         .sort((a, b) => b.count - a.count)
         .slice(0, 10);
       setClickStats(sortedClicks);
+      setClickPositions(positions);
     }
   };
 
@@ -172,6 +190,21 @@ const AdminAnalytics = () => {
               <div className="text-2xl font-bold">
                 {clickStats.reduce((acc, stat) => acc + stat.count, 0)}
               </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Heatmap Section */}
+        <div className="mb-8">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Flame className="h-5 w-5 text-orange-500" />
+                Mapa de Calor de Clics
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="flex justify-center">
+              <ClickHeatmap clicks={clickPositions} width={400} height={600} />
             </CardContent>
           </Card>
         </div>
