@@ -14,6 +14,72 @@ export type Database = {
   }
   public: {
     Tables: {
+      click_events: {
+        Row: {
+          created_at: string
+          element_class: string | null
+          element_id: string | null
+          element_tag: string | null
+          element_text: string | null
+          id: string
+          page_path: string
+          session_id: string | null
+          x_position: number | null
+          y_position: number | null
+        }
+        Insert: {
+          created_at?: string
+          element_class?: string | null
+          element_id?: string | null
+          element_tag?: string | null
+          element_text?: string | null
+          id?: string
+          page_path: string
+          session_id?: string | null
+          x_position?: number | null
+          y_position?: number | null
+        }
+        Update: {
+          created_at?: string
+          element_class?: string | null
+          element_id?: string | null
+          element_tag?: string | null
+          element_text?: string | null
+          id?: string
+          page_path?: string
+          session_id?: string | null
+          x_position?: number | null
+          y_position?: number | null
+        }
+        Relationships: []
+      }
+      page_views: {
+        Row: {
+          created_at: string
+          id: string
+          page_path: string
+          referrer: string | null
+          session_id: string | null
+          user_agent: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          page_path: string
+          referrer?: string | null
+          session_id?: string | null
+          user_agent?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          page_path?: string
+          referrer?: string | null
+          session_id?: string | null
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
       testimonials: {
         Row: {
           author_name: string

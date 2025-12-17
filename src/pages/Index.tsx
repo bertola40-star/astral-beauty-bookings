@@ -5,8 +5,11 @@ import GoogleReviews from '@/components/GoogleReviews';
 import ExpertCarousel from '@/components/ExpertCarousel';
 import BookingForm from '@/components/BookingForm';
 import Footer from '@/components/Footer';
+import { useAnalytics } from '@/hooks/useAnalytics';
 
 const Index = () => {
+  useAnalytics();
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
