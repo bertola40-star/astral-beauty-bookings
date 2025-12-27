@@ -3,7 +3,7 @@ import { ArrowRight, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { BookingDialog } from '@/components/BookingDialog';
 import heroImage from '@/assets/hero-spa-interior.jpg';
-import yoannaImage from '@/assets/yoanna-valdes.jpg';
+import yoannaImage from '@/assets/yoanna-new.png';
 
 const Hero = () => {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
@@ -42,7 +42,7 @@ const Hero = () => {
               <img
                 src={yoannaImage}
                 alt="Yoanna Valdés - Experta en Belleza"
-                className="w-24 h-24 rounded-full object-cover border-4 border-luxury-gold/30"
+                className="w-24 h-24 rounded-full object-cover object-top border-4 border-luxury-gold/30"
               />
             </div>
             <div>
