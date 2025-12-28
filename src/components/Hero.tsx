@@ -38,11 +38,11 @@ const Hero = () => {
 
           {/* Expert Section */}
           <div className="flex items-center gap-6 mb-8">
-            <div className="relative">
+            <div className="relative w-24 h-24 rounded-full border-4 border-luxury-gold/30 overflow-hidden">
               <img
                 src={yoannaImage}
                 alt="Yoanna Valdés - Experta en Belleza"
-                className="w-24 h-24 rounded-full object-cover object-center border-4 border-luxury-gold/30"
+                className="w-full h-full object-cover scale-125"
               />
             </div>
             <div>
