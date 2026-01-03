@@ -57,7 +57,8 @@ const ExpertCarousel = () => {
                             <img
                               src={yoannaProfessional}
                               alt="Yoanna Valdés - Experta en Belleza"
-                              className="w-full h-[500px] md:h-[700px] object-cover object-top shadow-elegant-hover border-4 border-luxury-gold/30 rounded-2xl"
+                              className="w-full h-[500px] md:h-[700px] object-cover shadow-elegant-hover border-4 border-luxury-gold/30 rounded-2xl"
+                              style={{ objectPosition: 'center 25%' }}
                             />
                           </div>
                           
