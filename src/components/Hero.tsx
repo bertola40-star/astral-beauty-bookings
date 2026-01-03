@@ -42,7 +42,7 @@ const Hero = () => {
               <img
                 src={yoannaImage}
                 alt="Yoanna Valdés - Experta en Belleza"
-                className="w-full h-full object-cover scale-150"
+                className="w-full h-full object-cover scale-150 object-top"
               />
             </div>
             <div>
