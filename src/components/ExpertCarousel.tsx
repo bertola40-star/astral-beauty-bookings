@@ -53,12 +53,12 @@ const ExpertCarousel = () => {
                         </div>
                       ) : (
                         <div className="flex flex-col items-center space-y-6 w-full">
-                          <div className="relative w-full overflow-hidden rounded-2xl">
+                          <div className="relative w-full max-w-md mx-auto overflow-hidden rounded-2xl">
                             <img
                               src={yoannaProfessional}
                               alt="Yoanna Valdés - Experta en Belleza"
                               className="w-full h-[500px] md:h-[700px] object-cover shadow-elegant-hover border-4 border-luxury-gold/30 rounded-2xl"
-                              style={{ objectPosition: 'center 25%' }}
+                              style={{ objectPosition: 'center 15%' }}
                             />
                           </div>
                           
