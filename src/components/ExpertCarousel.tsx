@@ -6,7 +6,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
-import yoannaProfessional from "@/assets/yoanna-new.svg";
+import yoannaProfessional from "@/assets/yoanna-new.png";
 import instagramQR from "@/assets/instagram-qr.png";
 import { Instagram } from "lucide-react";
 

@@ -3,7 +3,7 @@ import { ArrowRight, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { BookingDialog } from '@/components/BookingDialog';
 import heroImage from '@/assets/hero-spa-interior.jpg';
-import yoannaImage from '@/assets/yoanna-new.svg';
+import yoannaImage from '@/assets/yoanna-new.png';
 
 const Hero = () => {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
