@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { Menu, X, Phone, MapPin, Clock, LogOut, User as UserIcon, BarChart3 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { BookingDialog } from '@/components/BookingDialog';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { User, Session } from '@supabase/supabase-js';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -15,9 +17,9 @@ const Header = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   useEffect(() => {
-    // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
         setSession(session);
@@ -33,7 +35,6 @@ const Header = () => {
       }
     );
 
-    // Check for existing session
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
@@ -59,19 +60,19 @@ const Header = () => {
   const handleLogout = async () => {
     await supabase.auth.signOut();
     toast({
-      title: "Sesión cerrada",
-      description: "Has cerrado sesión correctamente.",
+      title: t('header.logoutSuccess'),
+      description: t('header.logoutMessage'),
     });
     navigate('/');
   };
 
   const navigation = [
-    { name: 'Inicio', href: '/' },
-    { name: 'Servicios', href: '#servicios' },
-    { name: 'Galería', href: '/galeria' },
-    { name: 'Tienda', href: '/tienda' },
-    { name: 'Reservar Cita', href: '#reservar' },
-    { name: 'Contacto', href: '#contacto' },
+    { name: t('nav.home'), href: '/' },
+    { name: t('nav.services'), href: '#servicios' },
+    { name: t('nav.gallery'), href: '/galeria' },
+    { name: t('nav.shop'), href: '/tienda' },
+    { name: t('nav.booking'), href: '#reservar' },
+    { name: t('nav.contact'), href: '#contacto' },
   ];
 
   return (
@@ -85,14 +86,14 @@ const Header = () => {
                 <Phone className="h-4 w-4" />
                 <span>813-539-7294 (English) / 813-436-1395</span>
               </div>
-              <div className="flex items-center space-x-2">
+              <div className="hidden md:flex items-center space-x-2">
                 <MapPin className="h-4 w-4" />
                 <span>7730 Palm River Rd office 100, Tampa, FL 33619</span>
               </div>
             </div>
             <div className="flex items-center space-x-2">
               <Clock className="h-4 w-4" />
-              <span>Lun-Vie: 9AM-5PM</span>
+              <span>{t('header.hours')}</span>
             </div>
           </div>
         </div>
@@ -125,11 +126,12 @@ const Header = () => {
 
           {/* CTA Button & Auth */}
           <div className="hidden md:flex items-center gap-4">
+            <LanguageSwitcher />
             <Button 
               className="btn-luxury"
               onClick={() => setIsBookingOpen(true)}
             >
-              Reservar Ahora
+              {t('header.bookNow')}
             </Button>
             
             {user ? (
@@ -141,7 +143,7 @@ const Header = () => {
                       size="sm"
                       onClick={() => navigate('/admin/testimonios')}
                     >
-                      Testimonios
+                      {t('header.testimonials')}
                     </Button>
                     <Button
                       variant="outline"
@@ -164,7 +166,7 @@ const Header = () => {
                   className="flex items-center gap-2"
                 >
                   <LogOut className="h-4 w-4" />
-                  Salir
+                  {t('header.logout')}
                 </Button>
               </div>
             ) : (
@@ -172,13 +174,14 @@ const Header = () => {
                 variant="outline"
                 onClick={() => navigate('/auth')}
               >
-                Iniciar Sesión
+                {t('header.login')}
               </Button>
             )}
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center gap-2">
+            <LanguageSwitcher />
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="text-elegant-gray hover:text-luxury-gold"
@@ -210,7 +213,7 @@ const Header = () => {
                 setIsBookingOpen(true);
               }}
             >
-              Reservar Ahora
+              {t('header.bookNow')}
             </Button>
             
             {user ? (
@@ -229,7 +232,7 @@ const Header = () => {
                   className="w-full flex items-center justify-center gap-2"
                 >
                   <LogOut className="h-4 w-4" />
-                  Salir
+                  {t('header.logout')}
                 </Button>
               </div>
             ) : (
@@ -241,7 +244,7 @@ const Header = () => {
                   navigate('/auth');
                 }}
               >
-                Iniciar Sesión
+                {t('header.login')}
               </Button>
             )}
           </div>

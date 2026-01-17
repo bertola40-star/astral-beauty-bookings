@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Calendar, Clock, User, Phone, Mail, MessageSquare, CreditCard } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -12,11 +13,11 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
+import { es, enUS } from 'date-fns/locale';
 
 interface Service {
   id: string;
-  name: string;
+  nameKey: string;
   price: string;
   duration: string;
   requiresDeposit: boolean;
@@ -24,12 +25,12 @@ interface Service {
 }
 
 const services: Service[] = [
-  { id: 'microblading', name: 'Microblading', price: 'Consultar', duration: '2-3h', requiresDeposit: true, depositAmount: '$100' },
-  { id: 'lip-tattoo', name: 'Tatuaje de Labios', price: 'Consultar', duration: '2h', requiresDeposit: true, depositAmount: '$100' },
-  { id: 'facials', name: 'Faciales', price: 'Consultar', duration: '60-90min', requiresDeposit: true, depositAmount: '$25' },
-  { id: 'teeth-whitening', name: 'Blanqueamiento Dental', price: 'Consultar', duration: '60min', requiresDeposit: true, depositAmount: '$50' },
-  { id: 'laser-hair-removal', name: 'Depilación Láser', price: 'Consultar', duration: '30-60min', requiresDeposit: true, depositAmount: '$50' },
-  { id: 'eyebrow-design', name: 'Diseño de Cejas', price: 'Consultar', duration: '30min', requiresDeposit: true, depositAmount: '$15' },
+  { id: 'microblading', nameKey: 'services.microblading', price: 'Consultar', duration: '2-3h', requiresDeposit: true, depositAmount: '$100' },
+  { id: 'lip-tattoo', nameKey: 'services.lipTint', price: 'Consultar', duration: '2h', requiresDeposit: true, depositAmount: '$100' },
+  { id: 'facials', nameKey: 'services.facials', price: 'Consultar', duration: '60-90min', requiresDeposit: true, depositAmount: '$25' },
+  { id: 'teeth-whitening', nameKey: 'services.teethWhitening', price: 'Consultar', duration: '60min', requiresDeposit: true, depositAmount: '$50' },
+  { id: 'laser-hair-removal', nameKey: 'services.laserHairRemoval', price: 'Consultar', duration: '30-60min', requiresDeposit: true, depositAmount: '$50' },
+  { id: 'eyebrow-design', nameKey: 'services.eyebrowDesign', price: 'Consultar', duration: '30min', requiresDeposit: true, depositAmount: '$15' },
 ];
 
 const timeSlots = [
@@ -49,6 +50,7 @@ const BookingForm = () => {
     phone: '',
     notes: ''
   });
+  const { t, i18n } = useTranslation();
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -58,16 +60,17 @@ const BookingForm = () => {
   const totalPrice = selectedServiceData?.price || '';
   const requiresDeposit = selectedServiceData?.requiresDeposit || false;
   const depositAmount = selectedServiceData?.depositAmount || '';
+  
+  const dateLocale = i18n.language === 'es' ? es : enUS;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!selectedDate || !selectedTime || !selectedService) {
-      alert('Por favor completa todos los campos requeridos');
+      alert(t('booking.fillAllFields'));
       return;
     }
 
-    // Here you would typically send the booking data to your backend
     const bookingData = {
       ...formData,
       service: selectedService,
@@ -78,7 +81,7 @@ const BookingForm = () => {
     };
 
     console.log('Booking data:', bookingData);
-    alert('¡Reserva enviada exitosamente! Te contactaremos pronto para confirmar tu cita.');
+    alert(t('booking.bookingSuccess'));
   };
 
   return (
@@ -87,11 +90,10 @@ const BookingForm = () => {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold text-primary mb-4">
-            Reserva Tu <span className="text-luxury-gold">Cita</span>
+            {t('booking.title')} <span className="text-luxury-gold">{t('booking.titleHighlight')}</span>
           </h2>
           <p className="text-xl text-elegant-gray max-w-3xl mx-auto">
-            Selecciona tu servicio favorito, elige fecha y hora, y déjanos crear 
-            una experiencia de belleza inolvidable para ti.
+            {t('booking.subtitle')}
           </p>
         </div>
 
@@ -101,7 +103,7 @@ const BookingForm = () => {
             <CardHeader className="bg-gradient-to-r from-primary to-elegant-gray text-pure-white">
               <CardTitle className="text-2xl font-bold flex items-center">
                 <Calendar className="mr-3 h-6 w-6" />
-                Información de la Reserva
+                {t('booking.bookingInfo')}
               </CardTitle>
             </CardHeader>
             <CardContent className="p-8">
@@ -109,19 +111,19 @@ const BookingForm = () => {
                 {/* Service Selection */}
                 <div>
                   <Label className="text-base font-semibold text-primary mb-2 block">
-                    Selecciona tu Servicio *
+                    {t('booking.selectService')} *
                   </Label>
                   <Select value={selectedService} onValueChange={setSelectedService}>
                     <SelectTrigger className="h-12">
-                      <SelectValue placeholder="Elige un servicio..." />
+                      <SelectValue placeholder={t('booking.chooseService')} />
                     </SelectTrigger>
                     <SelectContent>
                       {services.map((service) => (
                         <SelectItem key={service.id} value={service.id}>
                           <div className="flex justify-between items-center w-full">
-                            <span>{service.name}</span>
+                            <span>{t(service.nameKey)}</span>
                             <span className="text-luxury-gold font-semibold ml-4">
-                              Requiere seña
+                              {t('booking.requiresDeposit')}
                             </span>
                           </div>
                         </SelectItem>
@@ -132,10 +134,10 @@ const BookingForm = () => {
                     <div className="mt-2 p-3 bg-luxury-gold/10 rounded-lg">
                       <div className="flex justify-between items-center">
                         <span className="text-sm text-elegant-gray">
-                          Duración: {selectedServiceData.duration}
+                          {t('booking.duration')}: {selectedServiceData.duration}
                         </span>
                         <Badge className="bg-luxury-gold text-primary">
-                          Seña: {depositAmount}
+                          {t('booking.deposit')}: {depositAmount}
                         </Badge>
                       </div>
                     </div>
@@ -145,7 +147,7 @@ const BookingForm = () => {
                 {/* Date Selection */}
                 <div>
                   <Label className="text-base font-semibold text-primary mb-2 block">
-                    Selecciona la Fecha *
+                    {t('booking.selectDate')} *
                   </Label>
                   <Popover>
                     <PopoverTrigger asChild>
@@ -158,9 +160,9 @@ const BookingForm = () => {
                       >
                         <Calendar className="mr-2 h-4 w-4" />
                         {selectedDate ? (
-                          format(selectedDate, "PPP", { locale: es })
+                          format(selectedDate, "PPP", { locale: dateLocale })
                         ) : (
-                          <span>Selecciona una fecha...</span>
+                          <span>{t('booking.selectDatePlaceholder')}</span>
                         )}
                       </Button>
                     </PopoverTrigger>
@@ -170,7 +172,7 @@ const BookingForm = () => {
                         selected={selectedDate}
                         onSelect={setSelectedDate}
                         disabled={(date) =>
-                          date < new Date() || date.getDay() === 0 // Disable past dates and Sundays
+                          date < new Date() || date.getDay() === 0
                         }
                         initialFocus
                         className="pointer-events-auto"
@@ -182,12 +184,12 @@ const BookingForm = () => {
                 {/* Time Selection */}
                 <div>
                   <Label className="text-base font-semibold text-primary mb-2 block">
-                    Selecciona la Hora *
+                    {t('booking.selectTime')} *
                   </Label>
                   <Select value={selectedTime} onValueChange={setSelectedTime}>
                     <SelectTrigger className="h-12">
                       <Clock className="mr-2 h-4 w-4" />
-                      <SelectValue placeholder="Elige una hora..." />
+                      <SelectValue placeholder={t('booking.selectTimePlaceholder')} />
                     </SelectTrigger>
                     <SelectContent>
                       {timeSlots.map((time) => (
@@ -205,27 +207,27 @@ const BookingForm = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="firstName" className="text-base font-semibold text-primary">
-                      Nombre *
+                      {t('booking.firstName')} *
                     </Label>
                     <Input
                       id="firstName"
                       value={formData.firstName}
                       onChange={(e) => handleInputChange('firstName', e.target.value)}
                       className="h-12 mt-1"
-                      placeholder="Tu nombre"
+                      placeholder={t('booking.firstNamePlaceholder')}
                       required
                     />
                   </div>
                   <div>
                     <Label htmlFor="lastName" className="text-base font-semibold text-primary">
-                      Apellido *
+                      {t('booking.lastName')} *
                     </Label>
                     <Input
                       id="lastName"
                       value={formData.lastName}
                       onChange={(e) => handleInputChange('lastName', e.target.value)}
                       className="h-12 mt-1"
-                      placeholder="Tu apellido"
+                      placeholder={t('booking.lastNamePlaceholder')}
                       required
                     />
                   </div>
@@ -233,7 +235,7 @@ const BookingForm = () => {
 
                 <div>
                   <Label htmlFor="email" className="text-base font-semibold text-primary">
-                    Email *
+                    {t('booking.email')} *
                   </Label>
                   <Input
                     id="email"
@@ -248,7 +250,7 @@ const BookingForm = () => {
 
                 <div>
                   <Label htmlFor="phone" className="text-base font-semibold text-primary">
-                    Teléfono *
+                    {t('booking.phone')} *
                   </Label>
                   <Input
                     id="phone"
@@ -263,20 +265,20 @@ const BookingForm = () => {
 
                 <div>
                   <Label htmlFor="notes" className="text-base font-semibold text-primary">
-                    Notas Adicionales
+                    {t('booking.additionalNotes')}
                   </Label>
                   <Textarea
                     id="notes"
                     value={formData.notes}
                     onChange={(e) => handleInputChange('notes', e.target.value)}
                     className="mt-1"
-                    placeholder="Información adicional, alergias, preferencias..."
+                    placeholder={t('booking.notesPlaceholder')}
                     rows={3}
                   />
                 </div>
 
                 <Button type="submit" className="w-full btn-luxury text-lg py-4">
-                  Confirmar Reserva
+                  {t('booking.confirmBooking')}
                   <Calendar className="ml-2 h-5 w-5" />
                 </Button>
               </form>
@@ -289,37 +291,37 @@ const BookingForm = () => {
             <Card className="shadow-xl">
               <CardHeader className="bg-luxury-gold text-primary">
                 <CardTitle className="text-xl font-bold">
-                  Resumen de tu Reserva
+                  {t('booking.bookingSummary')}
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-6">
                 {selectedServiceData ? (
                   <div className="space-y-4">
                     <div className="flex justify-between items-center">
-                      <span className="font-semibold">Servicio:</span>
+                      <span className="font-semibold">{t('booking.service')}:</span>
                       <span className="text-luxury-gold font-bold">
-                        {selectedServiceData.name}
+                        {t(selectedServiceData.nameKey)}
                       </span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="font-semibold">Duración:</span>
+                      <span className="font-semibold">{t('booking.duration')}:</span>
                       <span>{selectedServiceData.duration}</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="font-semibold">Precio:</span>
+                      <span className="font-semibold">{t('booking.price')}:</span>
                       <span className="text-luxury-gold font-bold text-lg">
-                        A consultar
+                        {t('booking.priceConsult')}
                       </span>
                     </div>
                     {selectedDate && (
                       <div className="flex justify-between items-center">
-                        <span className="font-semibold">Fecha:</span>
-                        <span>{format(selectedDate, "PPP", { locale: es })}</span>
+                        <span className="font-semibold">{t('booking.date')}:</span>
+                        <span>{format(selectedDate, "PPP", { locale: dateLocale })}</span>
                       </div>
                     )}
                     {selectedTime && (
                       <div className="flex justify-between items-center">
-                        <span className="font-semibold">Hora:</span>
+                        <span className="font-semibold">{t('booking.time')}:</span>
                         <span>{selectedTime}</span>
                       </div>
                     )}
@@ -328,14 +330,14 @@ const BookingForm = () => {
                       <div className="flex items-center space-x-2 mb-2">
                         <CreditCard className="h-5 w-5 text-luxury-gold" />
                         <span className="font-semibold text-primary">
-                          Seña Requerida
+                          {t('booking.depositRequired')}
                         </span>
                       </div>
                       <p className="text-sm text-elegant-gray mb-2">
-                        Todos los servicios con reserva online requieren una seña de {depositAmount} para confirmar la cita.
+                        {t('booking.depositNote', { amount: depositAmount })}
                       </p>
                       <div className="flex justify-between items-center">
-                        <span className="font-semibold">Seña:</span>
+                        <span className="font-semibold">{t('booking.deposit')}:</span>
                         <span className="text-luxury-gold font-bold">
                           {depositAmount}
                         </span>
@@ -344,7 +346,7 @@ const BookingForm = () => {
                   </div>
                 ) : (
                   <p className="text-elegant-gray text-center py-8">
-                    Selecciona un servicio para ver el resumen
+                    {t('booking.selectServiceForSummary')}
                   </p>
                 )}
               </CardContent>
@@ -354,7 +356,7 @@ const BookingForm = () => {
             <Card className="shadow-xl">
               <CardHeader>
                 <CardTitle className="text-xl font-bold text-primary">
-                  Información de Contacto
+                  {t('booking.contactInfo')}
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-6">
@@ -362,22 +364,22 @@ const BookingForm = () => {
                   <div className="flex items-center space-x-3">
                     <Phone className="h-5 w-5 text-luxury-gold" />
                     <div>
-                      <p className="font-semibold">Teléfono</p>
+                      <p className="font-semibold">{t('footer.phone')}</p>
                       <p className="text-elegant-gray">813-539-7294 (English) / 813-436-1395</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-3">
                     <Mail className="h-5 w-5 text-luxury-gold" />
                     <div>
-                      <p className="font-semibold">Email</p>
+                      <p className="font-semibold">{t('footer.email')}</p>
                       <p className="text-elegant-gray">yvaldes450@gmail.com</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-3">
                     <Clock className="h-5 w-5 text-luxury-gold" />
                     <div>
-                      <p className="font-semibold">Horarios</p>
-                      <p className="text-elegant-gray">Lun-Sab: 9:00 AM - 7:00 PM</p>
+                      <p className="font-semibold">{t('booking.hours')}</p>
+                      <p className="text-elegant-gray">{t('booking.hoursValue')}</p>
                     </div>
                   </div>
                 </div>
@@ -389,14 +391,14 @@ const BookingForm = () => {
               <CardContent className="p-6">
                 <h4 className="font-bold text-primary mb-4 flex items-center">
                   <MessageSquare className="mr-2 h-5 w-5 text-luxury-gold" />
-                  Notas Importantes
+                  {t('booking.importantNotes')}
                 </h4>
                 <ul className="space-y-2 text-sm text-elegant-gray">
-                  <li>• Las citas se confirman en orden de llegada</li>
-                  <li>• Para servicios con seña, el pago se realizará antes del tratamiento</li>
-                  <li>• Cancellaciones deben hacerse 24h antes</li>
-                  <li>• Llegada 15 minutos antes de la cita</li>
-                  <li>• Consulta gratuita incluida en todos los servicios</li>
+                  <li>• {t('booking.note1')}</li>
+                  <li>• {t('booking.note2')}</li>
+                  <li>• {t('booking.note3')}</li>
+                  <li>• {t('booking.note4')}</li>
+                  <li>• {t('booking.note5')}</li>
                 </ul>
               </CardContent>
             </Card>

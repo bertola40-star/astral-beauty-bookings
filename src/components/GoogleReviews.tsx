@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Star, Quote, ExternalLink, MapPin, Calendar } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -20,6 +21,7 @@ const GoogleReviews = () => {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [showAllReviews, setShowAllReviews] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const { t } = useTranslation();
 
   useEffect(() => {
     fetchTestimonials();
@@ -56,11 +58,11 @@ const GoogleReviews = () => {
     const diffTime = Math.abs(now.getTime() - date.getTime());
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     
-    if (diffDays === 1) return 'hace 1 día';
-    if (diffDays < 7) return `hace ${diffDays} días`;
-    if (diffDays < 30) return `hace ${Math.floor(diffDays / 7)} semanas`;
-    if (diffDays < 365) return `hace ${Math.floor(diffDays / 30)} meses`;
-    return `hace ${Math.floor(diffDays / 365)} años`;
+    if (diffDays === 1) return t('reviews.oneDayAgo');
+    if (diffDays < 7) return t('reviews.daysAgo', { count: diffDays });
+    if (diffDays < 30) return t('reviews.weeksAgo', { count: Math.floor(diffDays / 7) });
+    if (diffDays < 365) return t('reviews.monthsAgo', { count: Math.floor(diffDays / 30) });
+    return t('reviews.yearsAgo', { count: Math.floor(diffDays / 365) });
   };
 
   const renderStars = (rating: number) => {
@@ -79,7 +81,6 @@ const GoogleReviews = () => {
   };
 
   const handleViewOnGoogle = () => {
-    // En producción, esto abriría el perfil real de Google My Business
     window.open(`https://www.google.com/maps/search/Astral+Beauty+Spa+Tampa+FL`, '_blank');
   };
 
@@ -89,10 +90,10 @@ const GoogleReviews = () => {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold text-primary mb-4">
-            Lo Que Dicen Nuestros <span className="text-luxury-gold">Clientes</span>
+            {t('reviews.title')} <span className="text-luxury-gold">{t('reviews.titleHighlight')}</span>
           </h2>
           <p className="text-xl text-elegant-gray max-w-3xl mx-auto mb-8">
-            Descubre por qué somos el spa de belleza más valorado en Tampa, Florida
+            {t('reviews.subtitle')}
           </p>
 
           {/* Rating Summary */}
@@ -110,7 +111,7 @@ const GoogleReviews = () => {
                     <div className="flex">{renderStars(parseFloat(averageRating))}</div>
                   </div>
                   <p className="text-elegant-gray text-sm">
-                    Basado en {testimonials.length} reseñas
+                    {t('reviews.basedOn')} {testimonials.length} {t('reviews.reviewsCount')}
                   </p>
                 </div>
               </div>
@@ -126,7 +127,7 @@ const GoogleReviews = () => {
                 variant="outline"
               >
                 <ExternalLink className="mr-2 h-4 w-4" />
-                Ver en Google
+                {t('reviews.viewOnGoogle')}
               </Button>
             </CardContent>
           </Card>
@@ -135,7 +136,7 @@ const GoogleReviews = () => {
         {/* Reviews Grid */}
         {isLoading ? (
           <div className="text-center py-12">
-            <p className="text-elegant-gray">Cargando reseñas...</p>
+            <p className="text-elegant-gray">{t('reviews.loading')}</p>
           </div>
         ) : displayedReviews.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -180,7 +181,7 @@ const GoogleReviews = () => {
                   {/* Google Badge */}
                   <div className="mt-4 pt-4 border-t border-elegant-gray-light/30">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs text-elegant-gray">Reseña verificada</span>
+                      <span className="text-xs text-elegant-gray">{t('reviews.verifiedReview')}</span>
                       <div className="flex items-center space-x-1">
                         <img 
                           src="https://developers.google.com/static/maps/images/google_on_white.png" 
@@ -198,7 +199,7 @@ const GoogleReviews = () => {
           <Card className="text-center py-12">
             <CardContent>
               <p className="text-elegant-gray">
-                No hay reseñas disponibles todavía. ¡Sé el primero en dejar una!
+                {t('reviews.noReviews')}
               </p>
             </CardContent>
           </Card>
@@ -211,7 +212,7 @@ const GoogleReviews = () => {
               onClick={() => setShowAllReviews(!showAllReviews)}
               className="btn-elegant px-8 py-3"
             >
-              {showAllReviews ? 'Ver Menos Reseñas' : `Ver Todas las Reseñas (${testimonials.length})`}
+              {showAllReviews ? t('reviews.showLess') : `${t('reviews.showAll')} (${testimonials.length})`}
             </Button>
           </div>
         )}
@@ -219,17 +220,17 @@ const GoogleReviews = () => {
         {/* Call to Action for Reviews */}
         <div className="mt-16 text-center bg-luxury-gold/10 rounded-2xl p-8">
           <h3 className="text-2xl font-bold text-primary mb-4">
-            ¿Ya visitaste nuestro spa?
+            {t('reviews.visitedSpa')}
           </h3>
           <p className="text-elegant-gray mb-6">
-            Tu opinión es muy importante para nosotros. Comparte tu experiencia en Google.
+            {t('reviews.yourOpinionMatters')}
           </p>
           <Button
             onClick={handleViewOnGoogle}
             className="btn-luxury text-lg px-8 py-3"
           >
             <Star className="mr-2 h-5 w-5" />
-            Escribir Reseña en Google
+            {t('reviews.writeReview')}
           </Button>
         </div>
       </div>

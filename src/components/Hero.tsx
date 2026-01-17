@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { ArrowRight, Star } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { BookingDialog } from '@/components/BookingDialog';
 import heroImage from '@/assets/hero-spa-interior.jpg';
@@ -7,6 +8,7 @@ import yoannaImage from '@/assets/yoanna-new.png';
 
 const Hero = () => {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
+  const { t } = useTranslation();
   
   return (
     <section id="inicio" className="relative min-h-screen flex items-center">
@@ -26,14 +28,14 @@ const Hero = () => {
           {/* Badge */}
           <div className="inline-flex items-center space-x-2 bg-luxury-gold/20 backdrop-blur-sm rounded-full px-4 py-2 mb-6">
             <Star className="h-4 w-4 text-luxury-gold fill-current" />
-            <span className="text-luxury-gold font-medium">Spa Premium en Tampa</span>
+            <span className="text-luxury-gold font-medium">{t('hero.badge')}</span>
           </div>
 
           {/* Main Heading */}
           <h1 className="text-5xl lg:text-7xl font-bold text-pure-white mb-6 leading-tight">
-            Belleza
-            <span className="text-luxury-gold block">Extraordinaria</span>
-            <span className="text-elegant-gray-light">Te Espera</span>
+            {t('hero.title1')}
+            <span className="text-luxury-gold block">{t('hero.title2')}</span>
+            <span className="text-elegant-gray-light">{t('hero.title3')}</span>
           </h1>
 
           {/* Expert Section */}
@@ -47,16 +49,14 @@ const Hero = () => {
               />
             </div>
             <div>
-              <p className="text-elegant-gray-light text-lg mb-1">Tu destino de belleza premium</p>
-              <p className="text-luxury-gold font-semibold text-xl">por Yoanna Valdés</p>
+              <p className="text-elegant-gray-light text-lg mb-1">{t('hero.expertLabel')}</p>
+              <p className="text-luxury-gold font-semibold text-xl">{t('hero.expertBy')}</p>
             </div>
           </div>
 
           {/* Subtitle */}
           <p className="text-xl text-elegant-gray-light mb-8 leading-relaxed">
-            Descubre la experiencia de belleza más sofisticada en Tampa, Florida. 
-            Servicios premium de microblading y estética avanzada y 
-            micropigmentación consciente.
+            {t('hero.subtitle')}
           </p>
 
           {/* CTA Buttons */}
@@ -65,7 +65,7 @@ const Hero = () => {
               className="btn-luxury text-lg px-8 py-4"
               onClick={() => setIsBookingOpen(true)}
             >
-              Reservar Cita
+              {t('hero.bookAppointment')}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
             <Button 
@@ -75,7 +75,7 @@ const Hero = () => {
                 serviciosSection?.scrollIntoView({ behavior: 'smooth' });
               }}
             >
-              Ver Servicios
+              {t('hero.viewServices')}
             </Button>
           </div>
 
@@ -83,15 +83,15 @@ const Hero = () => {
           <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6">
             <div className="text-center sm:text-left">
               <div className="text-2xl font-bold text-luxury-gold mb-1">5+</div>
-              <div className="text-elegant-gray-light">Años de Experiencia</div>
+              <div className="text-elegant-gray-light">{t('hero.yearsExp')}</div>
             </div>
             <div className="text-center sm:text-left">
               <div className="text-2xl font-bold text-luxury-gold mb-1">1000+</div>
-              <div className="text-elegant-gray-light">Clientes Satisfechos</div>
+              <div className="text-elegant-gray-light">{t('hero.happyClients')}</div>
             </div>
             <div className="text-center sm:text-left">
               <div className="text-2xl font-bold text-luxury-gold mb-1">100%</div>
-              <div className="text-elegant-gray-light">Productos Premium</div>
+              <div className="text-elegant-gray-light">{t('hero.premiumProducts')}</div>
             </div>
           </div>
         </div>
