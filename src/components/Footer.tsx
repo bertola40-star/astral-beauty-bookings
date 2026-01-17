@@ -1,6 +1,18 @@
 import { MapPin, Phone, Mail, Clock, Instagram, Facebook, Star } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
+  const { t } = useTranslation();
+  
+  const services = [
+    'Microblading',
+    t('footer.lipTattoo'),
+    t('footer.premiumFacials'),
+    t('footer.teethWhitening'),
+    t('footer.laserHairRemoval'),
+    t('footer.eyebrowDesign')
+  ];
+
   return (
     <footer className="bg-primary text-pure-white">
       {/* Main Footer */}
@@ -15,9 +27,7 @@ const Footer = () => {
                 <span className="text-elegant-gray-light">Spa</span>
               </div>
               <p className="text-elegant-gray-light text-lg leading-relaxed">
-                Tu destino de belleza premium en Tampa, Florida. Ofrecemos servicios 
-                de alta calidad con las últimas técnicas y productos de lujo para 
-                realzar tu belleza natural.
+                {t('footer.description')}
               </p>
             </div>
             
@@ -40,16 +50,16 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div>
-            <h3 className="text-xl font-bold text-luxury-gold mb-6">Contacto</h3>
+            <h3 className="text-xl font-bold text-luxury-gold mb-6">{t('footer.contact')}</h3>
             <div className="space-y-4">
               <div className="flex items-start space-x-3">
                 <MapPin className="h-5 w-5 text-luxury-gold mt-1 flex-shrink-0" />
                 <div>
-                  <p className="font-semibold">Ubicación</p>
+                  <p className="font-semibold">{t('footer.location')}</p>
                   <p className="text-elegant-gray-light text-sm">
                     7730 Palm River Rd office 100<br />
                     Tampa, FL 33619<br />
-                    Estados Unidos
+                    {t('common.usa')}
                   </p>
                 </div>
               </div>
@@ -57,7 +67,7 @@ const Footer = () => {
               <div className="flex items-start space-x-3">
                 <Phone className="h-5 w-5 text-luxury-gold mt-1 flex-shrink-0" />
                 <div>
-                  <p className="font-semibold">Teléfono</p>
+                  <p className="font-semibold">{t('footer.phone')}</p>
                   <p className="text-elegant-gray-light text-sm">813-539-7294 (English)<br />813-436-1395</p>
                 </div>
               </div>
@@ -65,7 +75,7 @@ const Footer = () => {
               <div className="flex items-start space-x-3">
                 <Mail className="h-5 w-5 text-luxury-gold mt-1 flex-shrink-0" />
                 <div>
-                  <p className="font-semibold">Email</p>
+                  <p className="font-semibold">{t('footer.email')}</p>
                   <p className="text-elegant-gray-light text-sm">yvaldes450@gmail.com</p>
                 </div>
               </div>
@@ -73,10 +83,10 @@ const Footer = () => {
               <div className="flex items-start space-x-3">
                 <Clock className="h-5 w-5 text-luxury-gold mt-1 flex-shrink-0" />
                 <div>
-                  <p className="font-semibold">Horarios</p>
+                  <p className="font-semibold">{t('footer.hours')}</p>
                   <p className="text-elegant-gray-light text-sm">
-                    Lun - Vie: 9:00 AM - 5:00 PM<br />
-                    Sáb - Dom: Cerrado
+                    {t('footer.hoursValue1')}<br />
+                    {t('footer.hoursValue2')}
                   </p>
                 </div>
               </div>
@@ -85,16 +95,9 @@ const Footer = () => {
 
           {/* Services Quick Links */}
           <div>
-            <h3 className="text-xl font-bold text-luxury-gold mb-6">Servicios</h3>
+            <h3 className="text-xl font-bold text-luxury-gold mb-6">{t('footer.servicesTitle')}</h3>
             <ul className="space-y-2">
-              {[
-                'Microblading',
-                'Tatuaje de Labios',
-                'Faciales Premium',
-                'Blanqueamiento Dental',
-                'Depilación Láser',
-                'Diseño de Cejas'
-              ].map((service) => (
+              {services.map((service) => (
                 <li key={service}>
                   <a
                     href="#servicios"
@@ -117,11 +120,10 @@ const Footer = () => {
               ))}
             </div>
             <blockquote className="text-xl italic text-elegant-gray-light mb-4">
-              "Astral Beauty Spa transformó completamente mi look. El microblading quedó 
-              perfecto y el servicio fue excepcional. ¡Altamente recomendado!"
+              {t('footer.testimonialQuote')}
             </blockquote>
             <cite className="text-luxury-gold font-semibold">
-              - María G., Cliente Satisfecha
+              {t('footer.testimonialAuthor')}
             </cite>
           </div>
         </div>
@@ -132,26 +134,26 @@ const Footer = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-elegant-gray-light text-sm">
-              © 2024 Astral Beauty Spa. Todos los derechos reservados.
+              {t('footer.copyright')}
             </div>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a
                 href="#"
                 className="text-elegant-gray-light hover:text-luxury-gold text-sm transition-colors duration-300"
               >
-                Política de Privacidad
+                {t('footer.privacyPolicy')}
               </a>
               <a
                 href="#"
                 className="text-elegant-gray-light hover:text-luxury-gold text-sm transition-colors duration-300"
               >
-                Términos de Servicio
+                {t('footer.termsOfService')}
               </a>
               <a
                 href="#"
                 className="text-elegant-gray-light hover:text-luxury-gold text-sm transition-colors duration-300"
               >
-                Política de Cancelación
+                {t('footer.cancellationPolicy')}
               </a>
             </div>
           </div>
