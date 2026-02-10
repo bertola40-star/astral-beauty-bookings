@@ -1,41 +1,50 @@
 import { useState } from 'react';
 import { Upload, X, Eye, Trash2 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 
 interface GalleryImage {
   id: string;
   url: string;
-  name: string;
-  category: string;
+  nameKey: string;
+  categoryKey: string;
 }
 
 const Gallery = () => {
+  const { t } = useTranslation();
   const [images, setImages] = useState<GalleryImage[]>([
     {
       id: '1',
       url: '/src/assets/microblading.jpg',
-      name: 'Microblading Natural',
-      category: 'Microblading'
+      nameKey: 'Microblading Natural',
+      categoryKey: 'services.microblading'
     },
     {
       id: '2', 
       url: '/src/assets/lip-tattoo.jpg',
-      name: 'Tatuaje de Labios',
-      category: 'Tatuaje de Labios'
+      nameKey: 'Lip Tattoo',
+      categoryKey: 'gallery.lipTattoo'
     },
     {
       id: '3',
       url: '/src/assets/eyebrow-design.jpg', 
-      name: 'Diseño de Cejas',
-      category: 'Diseño de Cejas'
+      nameKey: 'Eyebrow Design',
+      categoryKey: 'gallery.eyebrowDesign'
     }
   ]);
   
-  const [selectedCategory, setSelectedCategory] = useState('Todos');
+  const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
 
-  const categories = ['Todos', 'Microblading', 'Tatuaje de Labios', 'Diseño de Cejas', 'Faciales', 'Blanqueamiento Dental'];
+  const categories = [
+    { id: 'all', labelKey: 'gallery.all' },
+    { id: 'services.microblading', labelKey: 'services.microblading' },
+    { id: 'gallery.lipTattoo', labelKey: 'gallery.lipTattoo' },
+    { id: 'gallery.eyebrowDesign', labelKey: 'gallery.eyebrowDesign' },
+    { id: 'gallery.facials', labelKey: 'gallery.facials' },
+    { id: 'gallery.teethWhitening', labelKey: 'gallery.teethWhitening' }
+  ];
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
@@ -46,8 +55,8 @@ const Gallery = () => {
           const newImage: GalleryImage = {
             id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
             url: e.target?.result as string,
-            name: file.name.split('.')[0],
-            category: 'Microblading' // Default category, could be made selectable
+            nameKey: file.name.split('.')[0],
+            categoryKey: 'services.microblading'
           };
           setImages(prev => [...prev, newImage]);
         };
@@ -60,9 +69,9 @@ const Gallery = () => {
     setImages(prev => prev.filter(img => img.id !== id));
   };
 
-  const filteredImages = selectedCategory === 'Todos' 
+  const filteredImages = selectedCategory === 'all' 
     ? images 
-    : images.filter(img => img.category === selectedCategory);
+    : images.filter(img => img.categoryKey === selectedCategory);
 
   return (
     <div className="min-h-screen bg-background py-16">
@@ -70,10 +79,10 @@ const Gallery = () => {
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold text-primary mb-6">
-            Galería de <span className="text-luxury-gold">Trabajos</span>
+            {t('gallery.title')} <span className="text-luxury-gold">{t('gallery.titleHighlight')}</span>
           </h1>
           <p className="text-xl text-elegant-gray max-w-3xl mx-auto">
-            Explora nuestros trabajos realizados y sube nuevas imágenes para mostrar tu arte
+            {t('gallery.subtitle')}
           </p>
         </div>
 
@@ -81,7 +90,7 @@ const Gallery = () => {
         <div className="mb-8">
           <div className="bg-pure-white rounded-lg shadow-elegant p-6 border border-elegant-gray/20">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-2xl font-bold text-primary">Subir Nuevas Imágenes</h2>
+              <h2 className="text-2xl font-bold text-primary">{t('gallery.uploadTitle')}</h2>
             </div>
             <div className="border-2 border-dashed border-luxury-gold/30 rounded-lg p-8 text-center hover:border-luxury-gold/50 transition-colors">
               <input
@@ -95,10 +104,10 @@ const Gallery = () => {
               <label htmlFor="image-upload" className="cursor-pointer">
                 <Upload className="h-12 w-12 text-luxury-gold mx-auto mb-4" />
                 <p className="text-lg font-medium text-primary mb-2">
-                  Haz clic para subir imágenes
+                  {t('gallery.clickToUpload')}
                 </p>
                 <p className="text-elegant-gray">
-                  Arrastra y suelta archivos aquí, o haz clic para seleccionar
+                  {t('gallery.dragAndDrop')}
                 </p>
               </label>
             </div>
@@ -110,12 +119,12 @@ const Gallery = () => {
           <div className="flex flex-wrap gap-4 justify-center">
             {categories.map((category) => (
               <Button
-                key={category}
-                variant={selectedCategory === category ? "default" : "outline"}
-                onClick={() => setSelectedCategory(category)}
+                key={category.id}
+                variant={selectedCategory === category.id ? "default" : "outline"}
+                onClick={() => setSelectedCategory(category.id)}
                 className="transition-all duration-300"
               >
-                {category}
+                {t(category.labelKey)}
               </Button>
             ))}
           </div>
@@ -131,7 +140,7 @@ const Gallery = () => {
               <div className="relative aspect-square overflow-hidden">
                 <img
                   src={image.url}
-                  alt={image.name}
+                  alt={image.nameKey}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/20 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
@@ -151,12 +160,12 @@ const Gallery = () => {
                         <div className="p-4">
                           <img
                             src={image.url}
-                            alt={image.name}
+                            alt={image.nameKey}
                             className="w-full h-auto max-h-[80vh] object-contain rounded-lg"
                           />
                           <div className="mt-4">
-                            <h3 className="text-xl font-bold text-primary">{image.name}</h3>
-                            <p className="text-elegant-gray">{image.category}</p>
+                            <h3 className="text-xl font-bold text-primary">{image.nameKey}</h3>
+                            <p className="text-elegant-gray">{t(image.categoryKey)}</p>
                           </div>
                         </div>
                       </DialogContent>
@@ -173,8 +182,8 @@ const Gallery = () => {
                 </div>
               </div>
               <div className="p-4">
-                <h3 className="font-semibold text-primary mb-1">{image.name}</h3>
-                <p className="text-sm text-elegant-gray">{image.category}</p>
+                <h3 className="font-semibold text-primary mb-1">{image.nameKey}</h3>
+                <p className="text-sm text-elegant-gray">{t(image.categoryKey)}</p>
               </div>
             </div>
           ))}
@@ -183,7 +192,7 @@ const Gallery = () => {
         {filteredImages.length === 0 && (
           <div className="text-center py-16">
             <p className="text-xl text-elegant-gray">
-              No hay imágenes en esta categoría. ¡Sube algunas para empezar!
+              {t('gallery.noImages')}
             </p>
           </div>
         )}

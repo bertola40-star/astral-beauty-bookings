@@ -1,5 +1,6 @@
 import React from 'react';
 import { X, Minus, Plus, ShoppingBag, CreditCard } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
@@ -28,13 +29,14 @@ const Cart: React.FC<CartProps> = ({
   onUpdateQuantity,
   totalPrice
 }) => {
+  const { t } = useTranslation();
+
   const getTotalItems = () => {
     return items.reduce((total, item) => total + item.quantity, 0);
   };
 
   const handleCheckout = () => {
-    // TODO: Integrar con sistema de pagos
-    alert('¡Próximamente! Integraremos el sistema de pagos.');
+    alert(t('cart.comingSoon'));
   };
 
   if (items.length === 0) {
@@ -44,18 +46,18 @@ const Cart: React.FC<CartProps> = ({
           <SheetHeader>
             <SheetTitle className="flex items-center gap-2">
               <ShoppingBag className="h-5 w-5" />
-              Carrito de Compras
+              {t('cart.title')}
             </SheetTitle>
           </SheetHeader>
           
           <div className="flex flex-col items-center justify-center h-full text-center space-y-4">
             <ShoppingBag className="h-16 w-16 text-muted-foreground" />
             <div>
-              <h3 className="text-lg font-semibold">Tu carrito está vacío</h3>
-              <p className="text-muted-foreground">Agrega algunos productos para comenzar</p>
+              <h3 className="text-lg font-semibold">{t('cart.empty')}</h3>
+              <p className="text-muted-foreground">{t('cart.emptySubtitle')}</p>
             </div>
             <Button onClick={onClose} variant="outline">
-              Continuar Comprando
+              {t('cart.continueShopping')}
             </Button>
           </div>
         </SheetContent>
@@ -70,10 +72,10 @@ const Cart: React.FC<CartProps> = ({
           <SheetTitle className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <ShoppingBag className="h-5 w-5" />
-              Carrito de Compras
+              {t('cart.title')}
             </div>
             <Badge variant="secondary">
-              {getTotalItems()} {getTotalItems() === 1 ? 'artículo' : 'artículos'}
+              {getTotalItems()} {getTotalItems() === 1 ? t('cart.item') : t('cart.items')}
             </Badge>
           </SheetTitle>
         </SheetHeader>
@@ -84,14 +86,14 @@ const Cart: React.FC<CartProps> = ({
               <div key={item.product.id} className="flex gap-4 p-4 border rounded-lg">
                 <img
                   src={item.product.image}
-                  alt={item.product.name}
+                  alt={t(item.product.nameKey)}
                   className="w-16 h-16 object-cover rounded-md"
                 />
                 
                 <div className="flex-1 space-y-2">
                   <div className="flex justify-between items-start">
                     <div>
-                      <h4 className="font-medium line-clamp-1">{item.product.name}</h4>
+                      <h4 className="font-medium line-clamp-1">{t(item.product.nameKey)}</h4>
                       <p className="text-sm text-muted-foreground">
                         ${item.product.price.toFixed(2)}
                       </p>
@@ -146,16 +148,16 @@ const Cart: React.FC<CartProps> = ({
         <div className="border-t pt-4 space-y-4">
           <div className="space-y-2">
             <div className="flex justify-between text-sm">
-              <span>Subtotal:</span>
+              <span>{t('cart.subtotal')}:</span>
               <span>${totalPrice.toFixed(2)}</span>
             </div>
             <div className="flex justify-between text-sm">
-              <span>Envío:</span>
-              <span>Calculado al finalizar</span>
+              <span>{t('cart.shipping')}:</span>
+              <span>{t('cart.shippingCalc')}</span>
             </div>
             <Separator />
             <div className="flex justify-between font-semibold text-lg">
-              <span>Total:</span>
+              <span>{t('cart.total')}:</span>
               <span>${totalPrice.toFixed(2)}</span>
             </div>
           </div>
@@ -163,16 +165,16 @@ const Cart: React.FC<CartProps> = ({
           <div className="space-y-2">
             <Button onClick={handleCheckout} className="w-full" size="lg">
               <CreditCard className="h-4 w-4 mr-2" />
-              Proceder al Pago
+              {t('cart.checkout')}
             </Button>
             <Button variant="outline" onClick={onClose} className="w-full">
-              Continuar Comprando
+              {t('cart.continueShopping')}
             </Button>
           </div>
 
           <div className="text-xs text-muted-foreground text-center">
-            <p>Pagos seguros con encriptación SSL</p>
-            <p>Los productos digitales se entregan instantáneamente</p>
+            <p>{t('cart.securePay')}</p>
+            <p>{t('cart.digitalInstant')}</p>
           </div>
         </div>
       </SheetContent>

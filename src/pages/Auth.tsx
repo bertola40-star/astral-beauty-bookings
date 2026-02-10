@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -16,9 +17,9 @@ const Auth = () => {
   const [session, setSession] = useState<Session | null>(null);
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   useEffect(() => {
-    // Set up auth state listener FIRST
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
         setSession(session);
@@ -26,12 +27,9 @@ const Auth = () => {
       }
     );
 
-    // THEN check for existing session
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
-      
-      // Redirect if already logged in
       if (session) {
         navigate('/');
       }
@@ -40,7 +38,6 @@ const Auth = () => {
     return () => subscription.unsubscribe();
   }, [navigate]);
 
-  // Redirect authenticated users
   useEffect(() => {
     if (user) {
       navigate('/');
@@ -61,8 +58,8 @@ const Auth = () => {
         if (error) throw error;
 
         toast({
-          title: "¡Bienvenido!",
-          description: "Has iniciado sesión correctamente.",
+          title: t('auth.welcome'),
+          description: t('auth.welcomeMessage'),
         });
       } else {
         const redirectUrl = `${window.location.origin}/`;
@@ -77,22 +74,22 @@ const Auth = () => {
 
         if (error) {
           if (error.message.includes('already registered')) {
-            throw new Error('Este correo ya está registrado. Por favor inicia sesión.');
+            throw new Error(t('auth.alreadyRegistered'));
           }
           throw error;
         }
 
         toast({
-          title: "¡Cuenta creada!",
-          description: "Tu cuenta ha sido creada exitosamente. Puedes iniciar sesión ahora.",
+          title: t('auth.accountCreated'),
+          description: t('auth.accountCreatedMessage'),
         });
         
         setIsLogin(true);
       }
     } catch (error: any) {
       toast({
-        title: "Error",
-        description: error.message || "Ha ocurrido un error. Por favor intenta de nuevo.",
+        title: t('auth.error'),
+        description: error.message || t('auth.genericError'),
         variant: "destructive",
       });
     } finally {
@@ -110,17 +107,17 @@ const Auth = () => {
             <span className="text-elegant-gray">Spa</span>
           </h1>
           <h2 className="text-2xl font-semibold text-foreground mt-6">
-            {isLogin ? 'Iniciar Sesión' : 'Crear Cuenta'}
+            {isLogin ? t('auth.signIn') : t('auth.signUp')}
           </h2>
           <p className="text-muted-foreground mt-2">
-            {isLogin ? 'Accede a tu cuenta' : 'Regístrate para comenzar'}
+            {isLogin ? t('auth.accessAccount') : t('auth.registerStart')}
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="mt-8 space-y-6 bg-card p-8 rounded-lg shadow-lg border">
           <div className="space-y-4">
             <div>
-              <Label htmlFor="email">Correo Electrónico</Label>
+              <Label htmlFor="email">{t('auth.emailLabel')}</Label>
               <Input
                 id="email"
                 type="email"
@@ -133,7 +130,7 @@ const Auth = () => {
             </div>
 
             <div>
-              <Label htmlFor="password">Contraseña</Label>
+              <Label htmlFor="password">{t('auth.passwordLabel')}</Label>
               <Input
                 id="password"
                 type="password"
@@ -146,7 +143,7 @@ const Auth = () => {
               />
               {!isLogin && (
                 <p className="text-sm text-muted-foreground mt-1">
-                  Mínimo 6 caracteres
+                  {t('auth.minChars')}
                 </p>
               )}
             </div>
@@ -157,7 +154,7 @@ const Auth = () => {
             className="w-full btn-luxury"
             disabled={loading}
           >
-            {loading ? 'Procesando...' : isLogin ? 'Iniciar Sesión' : 'Crear Cuenta'}
+            {loading ? t('auth.processing') : isLogin ? t('auth.signIn') : t('auth.signUp')}
           </Button>
 
           <div className="text-center">
@@ -166,9 +163,7 @@ const Auth = () => {
               onClick={() => setIsLogin(!isLogin)}
               className="text-primary hover:text-luxury-gold transition-colors"
             >
-              {isLogin
-                ? '¿No tienes cuenta? Regístrate'
-                : '¿Ya tienes cuenta? Inicia sesión'}
+              {isLogin ? t('auth.noAccount') : t('auth.hasAccount')}
             </button>
           </div>
         </form>
@@ -179,7 +174,7 @@ const Auth = () => {
             onClick={() => navigate('/')}
             className="text-muted-foreground hover:text-foreground"
           >
-            Volver al inicio
+            {t('auth.backHome')}
           </Button>
         </div>
       </div>
