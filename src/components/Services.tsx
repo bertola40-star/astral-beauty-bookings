@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Star, Clock, CreditCard, ArrowRight } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
@@ -15,18 +16,18 @@ import laserHairRemovalImg from '@/assets/laser-hair-removal.jpg';
 import eyebrowDesignImg from '@/assets/eyebrow-design.jpg';
 
 interface Treatment {
-  name: string;
-  description: string;
+  nameKey: string;
+  descriptionKey: string;
   duration: string;
   price: string;
-  features: string[];
+  featureKeys: string[];
 }
 
 interface Service {
   id: string;
-  name: string;
+  nameKey: string;
   image: string;
-  description: string;
+  descriptionKey: string;
   price: string;
   duration: string;
   requiresDeposit: boolean;
@@ -38,247 +39,247 @@ interface Service {
 const services: Service[] = [
   {
     id: 'microblading',
-    name: 'Microblading',
+    nameKey: 'services.microblading',
     image: microbladingImg,
-    description: 'Técnica de micropigmentación para cejas perfectas y naturales',
-    price: 'Desde $350',
-    duration: '4 horas aprox',
+    descriptionKey: 'services.microbladingDesc',
+    price: '$350',
+    duration: '4h',
     requiresDeposit: true,
     depositAmount: '$100',
     rating: 5.0,
     treatments: [
       {
-        name: 'Hybrid Brows Pro 🌿',
-        description: 'Híbrido avanzado adaptado a cada persona para resultados naturales únicos',
-        duration: '4 horas',
+        nameKey: 'treatments.hybridBrows',
+        descriptionKey: 'treatments.hybridBrowsDesc',
+        duration: '4h',
         price: '$500',
-        features: ['Técnica híbrida personalizada', 'Adaptación facial única', 'Pigmentos biocompatibles', 'Retoque adicional (45 días) - costo extra', 'Seguimiento especializado']
+        featureKeys: ['treatments.hybridTechnique', 'treatments.facialAdaptation', 'treatments.biocompatiblePigments', 'treatments.retouchExtra', 'treatments.specializedFollowup']
       },
       {
-        name: 'Microblading Clásico',
-        description: 'Diseño y creación de cejas naturales con técnica pelo a pelo',
-        duration: '4 horas',
+        nameKey: 'treatments.classicMicroblading',
+        descriptionKey: 'treatments.classicMicrobladingDesc',
+        duration: '4h',
         price: '$350',
-        features: ['Consulta y diseño', 'Aplicación de pigmento', 'Retoque adicional (45 días) - costo extra', 'Cuidados post-tratamiento']
+        featureKeys: ['treatments.consultDesign', 'treatments.pigmentApplication', 'treatments.retouchExtra', 'treatments.postCareTreatment']
       },
       {
-        name: 'Nano Brows ✨',
-        description: 'Técnica de precisión tecnológica para cejas ultra naturales y delicadas',
-        duration: '4 horas',
+        nameKey: 'treatments.nanoBrows',
+        descriptionKey: 'treatments.nanoBrowsDesc',
+        duration: '4h',
         price: '$400',
-        features: ['Tecnología nano', 'Precisión extrema', 'Efecto súper natural', 'Retoque adicional (45 días) - costo extra', 'Para uso diario']
+        featureKeys: ['treatments.nanoTech', 'treatments.extremePrecision', 'treatments.superNaturalEffect', 'treatments.retouchExtra', 'treatments.dailyUse']
       },
       {
-        name: 'Power Brows 💪',
-        description: 'Cejas definidas con carácter para un look empoderado e impactante',
-        duration: '4 horas',
+        nameKey: 'treatments.powerBrows',
+        descriptionKey: 'treatments.powerBrowsDesc',
+        duration: '4h',
         price: '$420',
-        features: ['Cejas con fuerza', 'Definición marcada', 'Look empoderado', 'Retoque adicional (45 días) - costo extra', 'Máximo impacto']
+        featureKeys: ['treatments.strongBrows', 'treatments.markedDefinition', 'treatments.empoweredLook', 'treatments.retouchExtra', 'treatments.maxImpact']
       },
       {
-        name: 'Ombre Brows ✨',
-        description: 'Efecto degradado elegante tipo maquillaje permanente para despertar lista',
-        duration: '4 horas',
+        nameKey: 'treatments.ombreBrows',
+        descriptionKey: 'treatments.ombreBrowsDesc',
+        duration: '4h',
         price: '$450',
-        features: ['Efecto makeup look', 'Degradado suave', 'Elegancia moderna', 'Retoque adicional (45 días) - costo extra', 'Practicidad diaria']
+        featureKeys: ['treatments.makeupLook', 'treatments.softGradient', 'treatments.modernElegance', 'treatments.retouchExtra', 'treatments.dailyPracticality']
       },
       {
-        name: 'Microblading Premium',
-        description: 'Técnica avanzada con pigmentos de alta calidad y diseño personalizado',
-        duration: '4 horas',
+        nameKey: 'treatments.premiumMicroblading',
+        descriptionKey: 'treatments.premiumMicrobladingDesc',
+        duration: '4h',
         price: '$480',
-        features: ['Diseño 3D personalizado', 'Pigmentos premium', 'Retoque adicional (45 días) - costo extra', 'Seguimiento 6 meses']
+        featureKeys: ['treatments.personalized3D', 'treatments.premiumPigments', 'treatments.retouchExtra', 'treatments.followup6Months']
       }
     ]
   },
   {
     id: 'lip-tint',
-    name: 'LipTint',
+    nameKey: 'services.lipTint',
     image: lipTattooImg,
-    description: 'Pigmentación permanente para labios más definidos y coloridos',
-    price: 'Desde $300',
-    duration: '4 horas aprox',
+    descriptionKey: 'services.lipTintDesc',
+    price: '$300',
+    duration: '4h',
     requiresDeposit: true,
     depositAmount: '$100',
     rating: 4.9,
     treatments: [
       {
-        name: 'Astral Lips',
-        description: 'Definición del contorno natural de los labios',
-        duration: '4 horas',
+        nameKey: 'treatments.astralLips',
+        descriptionKey: 'treatments.astralLipsDesc',
+        duration: '4h',
         price: '$300',
-        features: ['Diseño de contorno', 'Pigmentación permanente', 'Efecto natural', 'Retoque adicional (45 días) - costo extra']
+        featureKeys: ['treatments.contourDesign', 'treatments.permanentPigmentation', 'treatments.naturalEffect', 'treatments.retouchExtra']
       },
       {
-        name: 'FullLips',
-        description: 'Pigmentación completa con color y volumen',
-        duration: '4 horas',
+        nameKey: 'treatments.fullLips',
+        descriptionKey: 'treatments.fullLipsDesc',
+        duration: '4h',
         price: '$400',
-        features: ['Color completo', 'Efecto volumen', 'Larga duración', 'Retoque adicional (45 días) - costo extra']
+        featureKeys: ['treatments.fullColor', 'treatments.volumeEffect', 'treatments.longLasting', 'treatments.retouchExtra']
       },
       {
-        name: 'Neutralización de Labios',
-        description: 'Corrección de pigmentaciones previas y tonos no deseados',
-        duration: '4 horas',
+        nameKey: 'treatments.lipNeutralization',
+        descriptionKey: 'treatments.lipNeutralizationDesc',
+        duration: '4h',
         price: '$350',
-        features: ['Corrección de color', 'Neutralización de tonos', 'Técnica especializada', 'Retoque adicional (45 días) - costo extra']
+        featureKeys: ['treatments.colorCorrection', 'treatments.toneNeutralization', 'treatments.specializedTechnique', 'treatments.retouchExtra']
       }
     ]
   },
   {
     id: 'facials',
-    name: 'Faciales',
+    nameKey: 'services.facials',
     image: facialsImg,
-    description: 'Tratamientos faciales personalizados para todo tipo de piel',
-    price: 'Desde $80',
+    descriptionKey: 'services.facialsDesc',
+    price: '$80',
     duration: '60-90 min',
     requiresDeposit: true,
     depositAmount: '$25',
     rating: 4.8,
     treatments: [
       {
-        name: 'Hydra Facial Astral Glow',
-        description: 'No es una limpieza es un reset cósmico',
-        duration: '60 minutos',
+        nameKey: 'treatments.hydraFacial',
+        descriptionKey: 'treatments.hydraFacialDesc',
+        duration: '60 min',
         price: '$150',
-        features: ['Reset cósmico', 'Hidratación profunda', 'Tecnología avanzada', 'Resultados inmediatos']
+        featureKeys: ['treatments.cosmicReset', 'treatments.deepHydration', 'treatments.advancedTech', 'treatments.immediateResults']
       },
       {
-        name: 'Deep Clean',
-        description: 'Limpieza profunda con extracciones',
-        duration: '75 minutos',
+        nameKey: 'treatments.deepClean',
+        descriptionKey: 'treatments.deepCleanDesc',
+        duration: '75 min',
         price: '$100',
-        features: ['Limpieza profunda', 'Extracciones', 'Purificación poros', 'Piel renovada']
+        featureKeys: ['treatments.deepCleansing', 'treatments.extractions', 'treatments.porePurification', 'treatments.renewedSkin']
       },
       {
-        name: 'SkinBooster',
-        description: 'Un shot directo de poder para tu piel: vitaminas, aminoácidos y péptidos más hidratación intensiva',
-        duration: '60 minutos',
+        nameKey: 'treatments.skinBooster',
+        descriptionKey: 'treatments.skinBoosterDesc',
+        duration: '60 min',
         price: '$180',
-        features: ['Vitaminas concentradas', 'Aminoácidos', 'Péptidos activos', 'Hidratación intensiva']
+        featureKeys: ['treatments.concentratedVitamins', 'treatments.aminoAcids', 'treatments.activePeptides', 'treatments.intensiveHydration']
       },
       {
-        name: 'EXOSOMAS Astral Regeneration',
-        description: 'Tratamiento de alta tecnología celular. Restaura, regenera y rejuvenece tu piel como si le dieras "Ctrl+Z" al envejecimiento',
-        duration: '90 minutos',
+        nameKey: 'treatments.exosomes',
+        descriptionKey: 'treatments.exosomesDesc',
+        duration: '90 min',
         price: '$400',
-        features: ['Tecnología celular', 'Restauración profunda', 'Regeneración avanzada', 'Efecto anti-edad']
+        featureKeys: ['treatments.cellularTech', 'treatments.deepRestoration', 'treatments.advancedRegeneration', 'treatments.antiAging']
       },
       {
-        name: 'MICRONEEDLING Dermapen Astral',
-        description: 'Pequeñas agujas, grandes resultados. Estimula colágeno, reduce marcas y te deja la piel más firme que tu ex tratando de volver',
-        duration: '75 minutos',
+        nameKey: 'treatments.microneedling',
+        descriptionKey: 'treatments.microneedlingDesc',
+        duration: '75 min',
         price: '$250',
-        features: ['Estimulación colágeno', 'Reducción marcas', 'Firmeza extrema', 'Microagujas precision']
+        featureKeys: ['treatments.collagenStimulation', 'treatments.markReduction', 'treatments.extremeFirmness', 'treatments.precisionMicroneedles']
       },
       {
-        name: 'MICRODERMO ASTRAL Microdermoabrasión',
-        description: 'Exfoliación de otra galaxia. Remueve células muertas con precisión y revela una piel suave, clara y con textura de lujo',
-        duration: '60 minutos',
+        nameKey: 'treatments.microDermo',
+        descriptionKey: 'treatments.microDermoDesc',
+        duration: '60 min',
         price: '$140',
-        features: ['Exfoliación galáctica', 'Remoción células muertas', 'Textura de lujo', 'Piel renovada']
+        featureKeys: ['treatments.galacticExfoliation', 'treatments.deadCellRemoval', 'treatments.luxuryTexture', 'treatments.renewedSkin']
       },
       {
-        name: 'ASTRAL CARBON PEEL',
-        description: 'Un peeling con carbón que limpia en profundidad',
-        duration: '50 minutos',
+        nameKey: 'treatments.carbonPeel',
+        descriptionKey: 'treatments.carbonPeelDesc',
+        duration: '50 min',
         price: '$200',
-        features: ['Peeling con carbón', 'Limpieza profunda', 'Purificación intensa', 'Brillo natural']
+        featureKeys: ['treatments.carbonPeeling', 'treatments.deepCleansing', 'treatments.intensePurification', 'treatments.naturalGlow']
       }
     ]
   },
   {
     id: 'teeth-whitening',
-    name: 'Blanqueamiento Dental',
+    nameKey: 'services.teethWhitening',
     image: teethWhiteningImg,
-    description: 'Blanqueamiento cosmético profesional para una sonrisa perfecta',
-    price: 'Desde $150',
+    descriptionKey: 'services.teethWhiteningDesc',
+    price: '$150',
     duration: '60 min',
     requiresDeposit: true,
     depositAmount: '$50',
     rating: 4.9,
     treatments: [
       {
-        name: 'Blanqueamiento Básico',
-        description: 'Tratamiento estándar para blanquear hasta 3 tonos',
-        duration: '45 minutos',
+        nameKey: 'treatments.basicWhitening',
+        descriptionKey: 'treatments.basicWhiteningDesc',
+        duration: '45 min',
         price: '$150',
-        features: ['Gel blanqueador', 'Luz LED', 'Protección gingival', 'Resultado inmediato']
+        featureKeys: ['treatments.whiteningGel', 'treatments.ledLight', 'treatments.gingivalProtection', 'treatments.immediateResult']
       },
       {
-        name: 'Blanqueamiento Premium',
-        description: 'Tratamiento avanzado para blanquear hasta 8 tonos',
-        duration: '90 minutos',
+        nameKey: 'treatments.premiumWhitening',
+        descriptionKey: 'treatments.premiumWhiteningDesc',
+        duration: '90 min',
         price: '$250',
-        features: ['Gel de alta concentración', 'Doble sesión', 'Kit de mantenimiento', 'Garantía 6 meses']
+        featureKeys: ['treatments.highConcentration', 'treatments.doubleSession', 'treatments.maintenanceKit', 'treatments.guarantee6Months']
       }
     ]
   },
   {
     id: 'laser-hair-removal',
-    name: 'Depilación Láser',
+    nameKey: 'services.laserHairRemoval',
     image: laserHairRemovalImg,
-    description: 'Eliminación permanente del vello con tecnología láser avanzada',
-    price: 'Desde $60',
+    descriptionKey: 'services.laserHairRemovalDesc',
+    price: '$60',
     duration: '30-60 min',
     requiresDeposit: true,
     depositAmount: '$50',
     rating: 4.9,
     treatments: [
       {
-        name: 'Zona Pequeña',
-        description: 'Labio superior, barbilla, axilas',
-        duration: '15-30 minutos',
+        nameKey: 'treatments.smallZone',
+        descriptionKey: 'treatments.smallZoneDesc',
+        duration: '15-30 min',
         price: '$60-80',
-        features: ['Láser diodo', 'Indoloro', 'Resultados permanentes', 'Piel suave']
+        featureKeys: ['treatments.diodeLaser', 'treatments.painless', 'treatments.permanentResults', 'treatments.smoothSkin']
       },
       {
-        name: 'Zona Media',
-        description: 'Brazos, bikini, rostro completo',
-        duration: '30-45 minutos',
+        nameKey: 'treatments.mediumZone',
+        descriptionKey: 'treatments.mediumZoneDesc',
+        duration: '30-45 min',
         price: '$120-180',
-        features: ['Tecnología avanzada', 'Enfriamiento', 'Sesiones programadas', 'Resultados duraderos']
+        featureKeys: ['treatments.advancedTech', 'treatments.cooling', 'treatments.scheduledSessions', 'treatments.lastingResults']
       },
       {
-        name: 'Zona Grande',
-        description: 'Piernas, espalda, pecho',
-        duration: '45-60 minutos',
+        nameKey: 'treatments.largeZone',
+        descriptionKey: 'treatments.largeZoneDesc',
+        duration: '45-60 min',
         price: '$200-300',
-        features: ['Cobertura amplia', 'Eficiencia máxima', 'Paquetes disponibles', 'Garantía de resultados']
+        featureKeys: ['treatments.wideCoverage', 'treatments.maxEfficiency', 'treatments.packagesAvailable', 'treatments.guaranteedResults']
       }
     ]
   },
   {
     id: 'eyebrow-design',
-    name: 'Depilación y Diseño de Cejas',
+    nameKey: 'services.eyebrowDesign',
     image: eyebrowDesignImg,
-    description: 'EPILACIÓN CON HILO: precisión milimétrica, sin químicos, ideal para pieles exigentes. CERA PREMIUM: rápida, duradera y perfecta para quienes quieren resultados impecables en segundos. PINZAS DE DISEÑO: el arte de la perfección en cada detalle. Porque la elegancia no tiene género ni edad, atrévete a regalarte una mirada más limpia, fresca y poderosa. Tus cejas no son solo un complemento; son tu poder silencioso. Listo para descubrir cómo un simple gesto puede transformar tu rostro.',
-    price: 'Desde $25',
+    descriptionKey: 'services.eyebrowDesignDesc',
+    price: '$25',
     duration: '30 min',
     requiresDeposit: true,
     depositAmount: '$15',
     rating: 4.8,
     treatments: [
       {
-        name: 'Cera Premium',
-        description: 'Rápida, duradera y perfecta para quienes quieren resultados impecables en segundos',
-        duration: '20 minutos',
+        nameKey: 'treatments.premiumWax',
+        descriptionKey: 'treatments.premiumWaxDesc',
+        duration: '20 min',
         price: '$25',
-        features: ['Depilación rápida', 'Resultados duraderos', 'Cera de alta calidad', 'Técnica profesional']
+        featureKeys: ['treatments.quickHairRemoval', 'treatments.lastingResults', 'treatments.highQualityWax', 'treatments.professionalTechnique']
       },
       {
-        name: 'Epilación con Hilo',
-        description: 'Precisión milimétrica, sin químicos, ideal para pieles exigentes',
-        duration: '30 minutos',
+        nameKey: 'treatments.threadEpilation',
+        descriptionKey: 'treatments.threadEpilationDesc',
+        duration: '30 min',
         price: '$30',
-        features: ['Técnica milenaria', 'Sin químicos', 'Precisión extrema', 'Ideal pieles sensibles']
+        featureKeys: ['treatments.ancientTechnique', 'treatments.chemicalFree', 'treatments.extremePrecision', 'treatments.sensitiveSkinIdeal']
       },
       {
-        name: 'Pinzas y Diseño',
-        description: 'El arte de la perfección en cada detalle',
-        duration: '45 minutos',
+        nameKey: 'treatments.tweezersDesign',
+        descriptionKey: 'treatments.tweezersDesignDesc',
+        duration: '45 min',
         price: '$35',
-        features: ['Diseño personalizado', 'Depilación precisa', 'Forma perfecta', 'Atención al detalle']
+        featureKeys: ['treatments.personalizedDesign', 'treatments.preciseHairRemoval', 'treatments.perfectShape', 'treatments.detailAttention']
       }
     ]
   }
@@ -288,6 +289,7 @@ const Services = () => {
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [showPrices, setShowPrices] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <section id="servicios" className="py-20 bg-soft-white">
@@ -295,11 +297,10 @@ const Services = () => {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold text-primary mb-4">
-            Nuestros <span className="text-luxury-gold">Servicios</span>
+            {t('services.title')} <span className="text-luxury-gold">{t('services.titleHighlight')}</span>
           </h2>
           <p className="text-xl text-elegant-gray max-w-3xl mx-auto">
-            Experimenta la excelencia en cada tratamiento. Servicios de belleza premium 
-            con las últimas técnicas y productos de la más alta calidad.
+            {t('services.subtitle')}
           </p>
         </div>
 
@@ -312,13 +313,13 @@ const Services = () => {
                   <div className="relative overflow-hidden">
                     <img
                       src={service.image}
-                      alt={service.name}
+                      alt={t(service.nameKey)}
                       className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                     <div className="absolute top-4 right-4">
                       {service.requiresDeposit && (
                         <Badge className="bg-luxury-gold text-primary font-semibold">
-                          Requiere Seña
+                          {t('services.requiresDeposit')}
                         </Badge>
                       )}
                     </div>
@@ -343,10 +344,10 @@ const Services = () => {
                   
                   <CardContent className="p-6">
                     <h3 className="text-xl font-bold text-primary mb-2">
-                      {service.name}
+                      {t(service.nameKey)}
                     </h3>
                     <p className="text-elegant-gray mb-4 line-clamp-2">
-                      {service.description}
+                      {t(service.descriptionKey)}
                     </p>
                     
                     <div className="flex items-center justify-between mb-4">
@@ -356,7 +357,7 @@ const Services = () => {
                       </div>
                       {showPrices && (
                         <div className="text-lg font-bold text-luxury-gold">
-                          {service.price}
+                          {t('services.from')} {service.price}
                         </div>
                       )}
                     </div>
@@ -364,12 +365,12 @@ const Services = () => {
                     <div className="flex items-center space-x-2 mb-4 p-3 bg-luxury-gold/10 rounded-lg">
                       <CreditCard className="h-4 w-4 text-luxury-gold" />
                       <span className="text-sm text-elegant-gray">
-                        Requiere seña para reserva online
+                        {t('services.depositRequired')}
                       </span>
                     </div>
 
                     <Button className="w-full btn-elegant group">
-                      Ver Tratamientos
+                      {t('services.viewTreatments')}
                       <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                     </Button>
                   </CardContent>
@@ -379,7 +380,7 @@ const Services = () => {
               <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
                 <DialogHeader>
                   <DialogTitle className="text-2xl font-bold text-primary">
-                    {service.name}
+                    {t(service.nameKey)}
                   </DialogTitle>
                 </DialogHeader>
                 
@@ -387,29 +388,29 @@ const Services = () => {
                   <div>
                     <img
                       src={service.image}
-                      alt={service.name}
+                      alt={t(service.nameKey)}
                       className="w-full h-64 object-cover rounded-lg"
                     />
                     <div className="mt-4 p-4 bg-luxury-gold/10 rounded-lg">
-                      <h4 className="font-semibold text-primary mb-2">Información del Servicio</h4>
+                      <h4 className="font-semibold text-primary mb-2">{t('services.serviceInfo')}</h4>
                       <p className="text-sm text-elegant-gray italic">
-                        Los precios de nuestros servicios serán confirmados al momento de realizar la reserva.
+                        {t('services.priceNote')}
                       </p>
                     </div>
                   </div>
 
                   <div>
                     <h4 className="text-lg font-semibold text-primary mb-4">
-                      Tratamientos Disponibles
+                      {t('services.availableTreatments')}
                     </h4>
                     <div className="space-y-4">
                       {service.treatments.map((treatment, index) => (
                         <Card key={index} className="p-4">
                           <h5 className="font-semibold text-primary mb-2">
-                            {treatment.name}
+                            {t(treatment.nameKey)}
                           </h5>
                           <p className="text-elegant-gray text-sm mb-3">
-                            {treatment.description}
+                            {t(treatment.descriptionKey)}
                           </p>
                           <div className="flex justify-between items-center mb-3">
                             <div className="flex items-center space-x-2">
@@ -423,10 +424,10 @@ const Services = () => {
                             )}
                           </div>
                           <div className="space-y-1">
-                            {treatment.features.map((feature, featureIndex) => (
+                            {treatment.featureKeys.map((featureKey, featureIndex) => (
                               <div key={featureIndex} className="flex items-center space-x-2">
                                 <div className="h-1.5 w-1.5 bg-luxury-gold rounded-full"></div>
-                                <span className="text-sm text-elegant-gray">{feature}</span>
+                                <span className="text-sm text-elegant-gray">{t(featureKey)}</span>
                               </div>
                             ))}
                           </div>
@@ -437,7 +438,7 @@ const Services = () => {
                               setIsBookingOpen(true);
                             }}
                           >
-                            Reservar {treatment.name}
+                            {t('services.bookTreatment', { name: t(treatment.nameKey) })}
                           </Button>
                         </Card>
                       ))}
@@ -456,10 +457,10 @@ const Services = () => {
             variant="outline"
             className="text-lg px-8 py-3 mr-4"
           >
-            {showPrices ? 'Ocultar Precios' : 'Consultar Precios'}
+            {showPrices ? t('services.hidePrices') : t('services.showPrices')}
           </Button>
           <Button className="btn-luxury text-lg px-12 py-4">
-            Ver Todos los Paquetes
+            {t('services.viewAllPackages')}
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
         </div>

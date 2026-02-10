@@ -1,5 +1,6 @@
 import React from 'react';
 import { Star, ShoppingCart, Gift, Video, Package } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -11,6 +12,8 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
+  const { t } = useTranslation();
+
   const getCategoryIcon = () => {
     switch (product.category) {
       case 'skincare':
@@ -27,13 +30,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
   const getCategoryLabel = () => {
     switch (product.category) {
       case 'skincare':
-        return 'Cuidado de la Piel';
+        return t('shop.skincare');
       case 'course':
-        return 'Curso Digital';
+        return t('shop.digitalCourse');
       case 'giftcard':
-        return 'Gift Card';
+        return t('shop.giftCards');
       default:
-        return 'Producto';
+        return t('shop.product');
     }
   };
 
@@ -69,7 +72,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
         <div className="relative overflow-hidden rounded-t-lg">
           <img
             src={product.image}
-            alt={product.name}
+            alt={t(product.nameKey)}
             className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
           />
           <div className="absolute top-3 left-3">
@@ -87,7 +90,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
           )}
           {!product.inStock && (
             <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-              <Badge variant="destructive">Agotado</Badge>
+              <Badge variant="destructive">{t('shop.outOfStock')}</Badge>
             </div>
           )}
         </div>
@@ -97,10 +100,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
         <div className="space-y-3">
           <div>
             <h3 className="font-semibold text-lg line-clamp-1 group-hover:text-primary transition-colors">
-              {product.name}
+              {t(product.nameKey)}
             </h3>
             <p className="text-muted-foreground text-sm line-clamp-2 mt-1">
-              {product.description}
+              {t(product.descriptionKey)}
             </p>
           </div>
 
@@ -119,7 +122,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
             </div>
             {product.inStock && (
               <Badge variant="outline" className="text-green-600 border-green-600">
-                En Stock
+                {t('shop.inStock')}
               </Badge>
             )}
           </div>
@@ -134,7 +137,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart }) => {
           variant={product.inStock ? "default" : "outline"}
         >
           <ShoppingCart className="h-4 w-4 mr-2" />
-          {product.inStock ? 'Agregar al Carrito' : 'Agotado'}
+          {product.inStock ? t('shop.addToCart') : t('shop.outOfStock')}
         </Button>
       </CardFooter>
     </Card>
