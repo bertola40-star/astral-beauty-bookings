@@ -7,7 +7,7 @@ import { Instagram } from "lucide-react";
 
 const ExpertCarousel = () => {
   const { t } = useTranslation();
-  
+
   const slides = [{
     id: 1,
     title: "Yoanna Valdés",
@@ -29,29 +29,29 @@ const ExpertCarousel = () => {
           loop: true
         }} className="w-full max-w-4xl mx-auto">
           <CarouselContent>
-            {slides.map(slide => (
-              <CarouselItem key={slide.id}>
+            {slides.map((slide) =>
+            <CarouselItem key={slide.id}>
                 <div className="p-1">
                   <Card className="border-luxury-gold/20 shadow-elegant">
                     <CardContent className="flex flex-col items-center justify-center p-8 md:p-12">
-                      {!slide.showImage ? (
-                        <div className="text-center space-y-4">
+                      {!slide.showImage ?
+                    <div className="text-center space-y-4">
                           <h3 className="text-3xl font-bold text-primary">
                             {slide.title}
                           </h3>
                           <p className="text-xl text-elegant-gray">
                             {slide.description}
                           </p>
-                        </div>
-                      ) : (
-                        <div className="flex flex-col items-center space-y-6 w-full">
+                        </div> :
+
+                    <div className="flex flex-col items-center space-y-6 w-full">
                           <div className="relative w-full max-w-xs mx-auto overflow-hidden rounded-2xl">
-                            <img 
-                              alt="Yoanna Valdés - Experta en Belleza" 
-                              style={{ objectPosition: 'center 10%' }}
-                              className="w-full h-[400px] md:h-[550px] shadow-elegant-hover border-4 border-luxury-gold/30 rounded-2xl border-accent shadow-none opacity-100 object-cover" 
-                              src="/lovable-uploads/1589f328-d575-4573-b412-35c6d0dd10d7.png" 
-                            />
+                            <img
+                          alt="Yoanna Valdés - Experta en Belleza"
+                          style={{ objectPosition: 'center 10%' }}
+                          className="w-full h-[400px] md:h-[550px] shadow-elegant-hover border-4 border-luxury-gold/30 rounded-2xl border-accent shadow-none opacity-100 object-cover" src="/lovable-uploads/ce0ae69d-18e1-4d7f-afcb-823c3bd62fb9.jpg" />
+
+
                           </div>
                           
                           <div className="text-center">
@@ -68,29 +68,29 @@ const ExpertCarousel = () => {
                               <Instagram className="h-5 w-5" />
                               <span className="font-semibold">@yoanna_beautyart</span>
                             </div>
-                            <img 
-                              src={instagramQR} 
-                              alt="Código QR Instagram - @yoanna_beautyart" 
-                              className="w-32 h-32 md:w-40 md:h-40" 
-                            />
+                            <img
+                          src={instagramQR}
+                          alt="Código QR Instagram - @yoanna_beautyart"
+                          className="w-32 h-32 md:w-40 md:h-40" />
+
                             <p className="text-sm text-elegant-gray text-center">
                               {t('expert.scanInstagram')}
                             </p>
                           </div>
                         </div>
-                      )}
+                    }
                     </CardContent>
                   </Card>
                 </div>
               </CarouselItem>
-            ))}
+            )}
           </CarouselContent>
           <CarouselPrevious className="hidden md:flex" />
           <CarouselNext className="hidden md:flex" />
         </Carousel>
       </div>
-    </section>
-  );
+    </section>);
+
 };
 
 export default ExpertCarousel;
