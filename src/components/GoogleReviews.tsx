@@ -251,13 +251,13 @@ const GoogleReviews = () => {
         )}
 
         {/* Show More/Less Button */}
-        {testimonials.length > 6 && (
+        {allReviews.length > 6 && (
           <div className="text-center mt-12">
             <Button
               onClick={() => setShowAllReviews(!showAllReviews)}
               className="btn-elegant px-8 py-3"
             >
-              {showAllReviews ? t('reviews.showLess') : `${t('reviews.showAll')} (${testimonials.length})`}
+              {showAllReviews ? t('reviews.showLess') : `${t('reviews.showAll')} (${allReviews.length})`}
             </Button>
           </div>
         )}
