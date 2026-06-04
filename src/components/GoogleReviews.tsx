@@ -17,15 +17,43 @@ interface Testimonial {
   created_at: string;
 }
 
+interface GoogleReview {
+  author_name: string;
+  author_photo: string | null;
+  rating: number;
+  text: string;
+  relative_time: string;
+  publish_time: string | null;
+}
+
+interface GooglePlaceData {
+  rating: number | null;
+  userRatingCount: number;
+  googleMapsUri: string | null;
+  reviews: GoogleReview[];
+}
+
 const GoogleReviews = () => {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+  const [googleData, setGoogleData] = useState<GooglePlaceData | null>(null);
   const [showAllReviews, setShowAllReviews] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const { t } = useTranslation();
 
   useEffect(() => {
     fetchTestimonials();
+    fetchGoogleReviews();
   }, []);
+
+  const fetchGoogleReviews = async () => {
+    try {
+      const { data, error } = await supabase.functions.invoke('google-reviews');
+      if (error) throw error;
+      setGoogleData(data as GooglePlaceData);
+    } catch (error) {
+      console.error('Error fetching Google reviews:', error);
+    }
+  };
 
   const fetchTestimonials = async () => {
     try {
@@ -45,12 +73,28 @@ const GoogleReviews = () => {
     }
   };
 
-  const fiveStarReviews = testimonials.filter(review => review.rating === 5);
-  const displayedReviews = showAllReviews ? testimonials : testimonials.slice(0, 6);
-  
-  const averageRating = testimonials.length > 0
-    ? (testimonials.reduce((acc, curr) => acc + curr.rating, 0) / testimonials.length).toFixed(1)
-    : '5.0';
+  // Merge real Google reviews with manual testimonials (Google first).
+  const googleAsTestimonials: Testimonial[] = (googleData?.reviews || []).map((r, idx) => ({
+    id: `google-${idx}`,
+    author_name: r.author_name,
+    rating: r.rating,
+    review_text: r.text,
+    service_type: null,
+    is_featured: false,
+    is_published: true,
+    created_at: r.publish_time || new Date().toISOString(),
+  }));
+
+  const allReviews = [...googleAsTestimonials, ...testimonials];
+  const displayedReviews = showAllReviews ? allReviews : allReviews.slice(0, 6);
+
+  const totalReviewCount = (googleData?.userRatingCount ?? 0) || allReviews.length;
+  const averageRating =
+    googleData?.rating != null
+      ? googleData.rating.toFixed(1)
+      : testimonials.length > 0
+        ? (testimonials.reduce((acc, curr) => acc + curr.rating, 0) / testimonials.length).toFixed(1)
+        : '5.0';
 
   const getRelativeTime = (dateString: string) => {
     const date = new Date(dateString);
