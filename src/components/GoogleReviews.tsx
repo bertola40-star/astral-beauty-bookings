@@ -156,7 +156,7 @@ const GoogleReviews = () => {
                     <div className="flex">{renderStars(parseFloat(averageRating))}</div>
                   </div>
                   <p className="text-elegant-gray text-sm">
-                    {t('reviews.basedOn')} {testimonials.length} {t('reviews.reviewsCount')}
+                    {t('reviews.basedOn')} {totalReviewCount} {t('reviews.reviewsCount')}
                   </p>
                 </div>
               </div>
