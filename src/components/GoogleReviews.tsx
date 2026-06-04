@@ -125,7 +125,8 @@ const GoogleReviews = () => {
   };
 
   const handleViewOnGoogle = () => {
-    window.open(`https://www.google.com/maps/search/Astral+Beauty+Spa+Tampa+FL`, '_blank');
+    const url = googleData?.googleMapsUri || `https://www.google.com/maps/place/?q=place_id:ChIJi9PiE_zPwogR8W71AcGadbs`;
+    window.open(url, '_blank');
   };
 
   return (
