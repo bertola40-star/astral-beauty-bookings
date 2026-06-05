@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { ShoppingCart, Filter, Search } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
@@ -186,6 +187,14 @@ const Shop = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>Shop — Skincare, Gift Cards & Courses | Astral Beauty Spa</title>
+        <meta name="description" content="Shop premium skincare, gift cards, and digital courses (microblading, lip tattoo, eyebrow design) from Astral Beauty Spa in Tampa, FL." />
+        <link rel="canonical" href="https://astral-beauty-bookings.lovable.app/tienda" />
+        <meta property="og:title" content="Shop — Skincare, Gift Cards & Courses | Astral Beauty Spa" />
+        <meta property="og:description" content="Premium skincare, gift cards, and digital courses from Astral Beauty Spa." />
+        <meta property="og:url" content="https://astral-beauty-bookings.lovable.app/tienda" />
+      </Helmet>
       {/* Header */}
       <div className="bg-card border-b">
         <div className="container mx-auto px-4 py-6">
