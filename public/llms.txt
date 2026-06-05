@@ -1,0 +1,9 @@
+# Astral Beauty Spa
+
+> Premium beauty spa in Tampa, Florida offering microblading, LipTint, facials, teeth whitening, laser hair removal, and eyebrow design by expert Yoanna Valdés.
+
+## Pages
+
+- [Home](/): Overview of services, expert, reviews, and booking.
+- [Shop](/tienda): Skincare products, gift cards, and digital courses (microblading, lip tattoo, eyebrow design).
+- [Gallery](/galeria): Photos of treatments and results.

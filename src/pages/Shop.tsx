@@ -218,10 +218,10 @@ const Shop = () => {
             <div className="space-y-6">
               {/* Search */}
               <div>
-                <h3 className="font-semibold mb-3 flex items-center">
+                <h2 className="font-semibold mb-3 flex items-center text-base">
                   <Search className="h-4 w-4 mr-2" />
                   {t('shop.search')}
-                </h3>
+                </h2>
                 <Input
                   placeholder={t('shop.searchPlaceholder')}
                   value={searchTerm}
@@ -231,10 +231,10 @@ const Shop = () => {
 
               {/* Categories */}
               <div>
-                <h3 className="font-semibold mb-3 flex items-center">
+                <h2 className="font-semibold mb-3 flex items-center text-base">
                   <Filter className="h-4 w-4 mr-2" />
                   {t('shop.categories')}
-                </h3>
+                </h2>
                 <div className="space-y-2">
                   {categories.map(category => (
                     <button
@@ -259,6 +259,7 @@ const Shop = () => {
 
           {/* Products Grid */}
           <div className="lg:w-3/4">
+            <h2 className="sr-only">Products</h2>
             <div className="mb-6">
               <p className="text-muted-foreground">
                 {t('shop.showing', { count: filteredProducts.length })}

@@ -313,7 +313,7 @@ const Services = () => {
                   <div className="relative overflow-hidden">
                     <img
                       src={service.image}
-                      alt={t(service.nameKey)}
+                      alt={`${t(service.nameKey)} treatment at Astral Beauty Spa`}
                       className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                     <div className="absolute top-4 right-4">
@@ -388,7 +388,7 @@ const Services = () => {
                   <div>
                     <img
                       src={service.image}
-                      alt={t(service.nameKey)}
+                      alt={`${t(service.nameKey)} service example`}
                       className="w-full h-64 object-cover rounded-lg"
                     />
                     <div className="mt-4 p-4 bg-luxury-gold/10 rounded-lg">

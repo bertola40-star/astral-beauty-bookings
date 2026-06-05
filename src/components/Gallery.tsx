@@ -140,7 +140,7 @@ const Gallery = () => {
               <div className="relative aspect-square overflow-hidden">
                 <img
                   src={image.url}
-                  alt={image.nameKey}
+                  alt={`${image.nameKey} — ${t(image.categoryKey)} treatment by Astral Beauty Spa`}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/20 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
@@ -152,6 +152,7 @@ const Gallery = () => {
                           variant="secondary"
                           onClick={() => setSelectedImage(image)}
                           className="bg-pure-white/90 hover:bg-pure-white"
+                          aria-label={`View image: ${image.nameKey}`}
                         >
                           <Eye className="h-4 w-4" />
                         </Button>
@@ -160,7 +161,7 @@ const Gallery = () => {
                         <div className="p-4">
                           <img
                             src={image.url}
-                            alt={image.nameKey}
+                            alt={`${image.nameKey} — ${t(image.categoryKey)} result at Astral Beauty Spa`}
                             className="w-full h-auto max-h-[80vh] object-contain rounded-lg"
                           />
                           <div className="mt-4">
@@ -175,6 +176,7 @@ const Gallery = () => {
                       variant="destructive"
                       onClick={() => deleteImage(image.id)}
                       className="bg-red-500/90 hover:bg-red-500"
+                      aria-label={`Delete image: ${image.nameKey}`}
                     >
                       <Trash2 className="h-4 w-4" />
                     </Button>
