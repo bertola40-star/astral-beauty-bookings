@@ -65,23 +65,44 @@ const BookingForm = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!selectedDate || !selectedTime || !selectedService) {
       alert(t('booking.fillAllFields'));
       return;
     }
 
-    const bookingData = {
-      ...formData,
-      service: selectedService,
-      date: selectedDate,
-      time: selectedTime,
-      requiresDeposit,
-      depositAmount
-    };
+    const isSpanish = i18n.language === 'es';
+    // ES: 813-436-1395 | EN: 813-539-7294 (E.164 without +)
+    const phone = isSpanish ? '18134361395' : '18135397294';
+    const serviceName = selectedServiceData ? t(selectedServiceData.nameKey) : selectedService;
+    const dateStr = format(selectedDate, 'PPP', { locale: dateLocale });
 
-    console.log('Booking data:', bookingData);
-    alert(t('booking.bookingSuccess'));
+    const message = isSpanish
+      ? `Hola! Quisiera reservar una cita.\n\n` +
+        `*Servicio:* ${serviceName}\n` +
+        `*Fecha:* ${dateStr}\n` +
+        `*Hora:* ${selectedTime}\n` +
+        `*Duración:* ${selectedServiceData?.duration ?? ''}\n` +
+        `*Depósito requerido:* ${depositAmount}\n\n` +
+        `*Nombre:* ${formData.firstName} ${formData.lastName}\n` +
+        `*Email:* ${formData.email}\n` +
+        `*Teléfono:* ${formData.phone}\n` +
+        (formData.notes ? `*Notas:* ${formData.notes}\n` : '') +
+        `\n¡Gracias!`
+      : `Hi! I'd like to book an appointment.\n\n` +
+        `*Service:* ${serviceName}\n` +
+        `*Date:* ${dateStr}\n` +
+        `*Time:* ${selectedTime}\n` +
+        `*Duration:* ${selectedServiceData?.duration ?? ''}\n` +
+        `*Required deposit:* ${depositAmount}\n\n` +
+        `*Name:* ${formData.firstName} ${formData.lastName}\n` +
+        `*Email:* ${formData.email}\n` +
+        `*Phone:* ${formData.phone}\n` +
+        (formData.notes ? `*Notes:* ${formData.notes}\n` : '') +
+        `\nThank you!`;
+
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
   };
 
   return (
