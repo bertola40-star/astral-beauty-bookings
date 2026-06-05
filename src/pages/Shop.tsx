@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { ShoppingCart, Filter, Search } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
@@ -186,6 +187,14 @@ const Shop = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>Shop — Skincare, Gift Cards & Courses | Astral Beauty Spa</title>
+        <meta name="description" content="Shop premium skincare, gift cards, and digital courses (microblading, lip tattoo, eyebrow design) from Astral Beauty Spa in Tampa, FL." />
+        <link rel="canonical" href="https://astral-beauty-bookings.lovable.app/tienda" />
+        <meta property="og:title" content="Shop — Skincare, Gift Cards & Courses | Astral Beauty Spa" />
+        <meta property="og:description" content="Premium skincare, gift cards, and digital courses from Astral Beauty Spa." />
+        <meta property="og:url" content="https://astral-beauty-bookings.lovable.app/tienda" />
+      </Helmet>
       {/* Header */}
       <div className="bg-card border-b">
         <div className="container mx-auto px-4 py-6">
@@ -218,10 +227,10 @@ const Shop = () => {
             <div className="space-y-6">
               {/* Search */}
               <div>
-                <h3 className="font-semibold mb-3 flex items-center">
+                <h2 className="font-semibold mb-3 flex items-center text-base">
                   <Search className="h-4 w-4 mr-2" />
                   {t('shop.search')}
-                </h3>
+                </h2>
                 <Input
                   placeholder={t('shop.searchPlaceholder')}
                   value={searchTerm}
@@ -231,10 +240,10 @@ const Shop = () => {
 
               {/* Categories */}
               <div>
-                <h3 className="font-semibold mb-3 flex items-center">
+                <h2 className="font-semibold mb-3 flex items-center text-base">
                   <Filter className="h-4 w-4 mr-2" />
                   {t('shop.categories')}
-                </h3>
+                </h2>
                 <div className="space-y-2">
                   {categories.map(category => (
                     <button
@@ -259,6 +268,7 @@ const Shop = () => {
 
           {/* Products Grid */}
           <div className="lg:w-3/4">
+            <h2 className="sr-only">Products</h2>
             <div className="mb-6">
               <p className="text-muted-foreground">
                 {t('shop.showing', { count: filteredProducts.length })}
