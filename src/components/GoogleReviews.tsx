@@ -47,7 +47,7 @@ const GoogleReviews = () => {
 
   const fetchGoogleReviews = async () => {
     try {
-      const { data, error } = await supabase.functions.invoke('gdynamic-endpoint');
+      const { data, error } = await supabase.functions.invoke('dynamic-endpoint');
       if (error) throw error;
       setGoogleData(data as GooglePlaceData);
     } catch (error) {
