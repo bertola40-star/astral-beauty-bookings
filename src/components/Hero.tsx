@@ -4,8 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { BookingDialog } from '@/components/BookingDialog';
 import heroImage from '@/assets/hero-spa-interior.jpg';
-import yoannaImage from '@/assets/yoanna-new.png';
-
+import yoannaImage from '@/assets/yoanna perfil pagina web 1.jpeg';
 const Hero = () => {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const { t } = useTranslation();
