@@ -49,7 +49,7 @@ const ExpertCarousel = () => {
                             <img
                           alt="Yoanna Valdés - Experta en Belleza"
                           style={{ objectPosition: 'center 10%' }}
-                          className="w-full h-[400px] md:h-[550px] shadow-elegant-hover border-4 border-luxury-gold/30 rounded-2xl border-accent shadow-none opacity-100 object-cover" src="/lovable-uploads/ce0ae69d-18e1-4d7f-afcb-823c3bd62fb9.jpg" />
+                          className="w-full h-[400px] md:h-[550px] shadow-elegant-hover border-4 border-luxury-gold/30 rounded-2xl border-accent shadow-none opacity-100 object-cover" src="/lovable-uploads/yoanna-experta.jpeg"/>
 
 
                           </div>
